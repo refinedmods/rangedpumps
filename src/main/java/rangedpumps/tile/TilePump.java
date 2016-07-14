@@ -76,8 +76,6 @@ public class TilePump extends TileEntity implements ITickable {
                     if (tank.fillInternal(handler.drain(RangedPumps.INSTANCE.capacity, true), true) > 0 && RangedPumps.INSTANCE.replaceLiquidWithStone) {
                         worldObj.setBlockState(currentPos, Blocks.STONE.getDefaultState());
                     }
-                } else {
-                    worldObj.setBlockState(currentPos, Blocks.DIRT.getDefaultState());
                 }
             }
         }
