@@ -9,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.IFluidBlock;
@@ -27,7 +28,15 @@ public class TilePump extends TileEntity implements ITickable {
     private BlockPos startPos;
 
     public TilePump() {
-        tank = new FluidTank(RangedPumps.INSTANCE.capacity);
+        tank = new FluidTank(RangedPumps.INSTANCE.capacity) {
+            @Override
+            protected void onContentsChanged() {
+                super.onContentsChanged();
+
+                markDirty();
+            }
+        };
+
         tank.setCanFill(false);
     }
 
@@ -41,16 +50,12 @@ public class TilePump extends TileEntity implements ITickable {
             startPos = pos.add(-RangedPumps.INSTANCE.range / 2, -1, -RangedPumps.INSTANCE.range / 2);
         }
 
-        boolean advance = true;
-
         if (currentPos == null) {
             currentPos = new BlockPos(startPos);
-
-            advance = false;
         }
 
         if ((RangedPumps.INSTANCE.speed == 0 || (ticks % RangedPumps.INSTANCE.speed == 0)) && getState() == EnumPumpState.WORKING) {
-            if (advance) {
+            if (!currentPos.equals(startPos)) {
                 if (currentPos.getY() - 1 < 1) {
                     currentPos = new BlockPos(currentPos.getX() + 1, startPos.getY(), currentPos.getZ());
                 } else {
@@ -106,7 +111,9 @@ public class TilePump extends TileEntity implements ITickable {
         if (currentPos != null && startPos != null) {
             if (isOverLastRow()) {
                 return EnumPumpState.DONE;
-            } else if (tank.getFluidAmount() >= tank.getCapacity()) {
+            } else if (!worldObj.isBlockPowered(pos)) {
+                return EnumPumpState.UNPOWERED;
+            } else if (tank.getFluidAmount() > tank.getCapacity() - Fluid.BUCKET_VOLUME) {
                 return EnumPumpState.FULL;
             } else {
                 return EnumPumpState.WORKING;
