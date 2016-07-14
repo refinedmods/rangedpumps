@@ -50,12 +50,16 @@ public class TilePump extends TileEntity implements ITickable {
             startPos = pos.add(-RangedPumps.INSTANCE.range / 2, -1, -RangedPumps.INSTANCE.range / 2);
         }
 
+        boolean firstUpdate = false;
+
         if (currentPos == null) {
             currentPos = new BlockPos(startPos);
+
+            firstUpdate = true;
         }
 
         if ((RangedPumps.INSTANCE.speed == 0 || (ticks % RangedPumps.INSTANCE.speed == 0)) && getState() == EnumPumpState.WORKING) {
-            if (!currentPos.equals(startPos)) {
+            if (!firstUpdate) {
                 if (currentPos.getY() - 1 < 1) {
                     currentPos = new BlockPos(currentPos.getX() + 1, startPos.getY(), currentPos.getZ());
                 } else {
@@ -90,8 +94,6 @@ public class TilePump extends TileEntity implements ITickable {
                             worldObj.setBlockState(currentPos, Blocks.STONE.getDefaultState());
                         }
                     }
-                } else {
-                    worldObj.setBlockState(currentPos, Blocks.DIRT.getDefaultState());
                 }
             }
         }
