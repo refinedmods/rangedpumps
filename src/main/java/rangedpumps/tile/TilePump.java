@@ -49,7 +49,7 @@ public class TilePump extends TileEntity implements ITickable {
             advance = false;
         }
 
-        if ((RangedPumps.INSTANCE.speed == 0 || (ticks++ % RangedPumps.INSTANCE.speed == 0)) && getState() == EnumPumpState.WORKING) {
+        if ((RangedPumps.INSTANCE.speed == 0 || (ticks % RangedPumps.INSTANCE.speed == 0)) && getState() == EnumPumpState.WORKING) {
             if (advance) {
                 if (currentPos.getY() - 1 < 1) {
                     currentPos = new BlockPos(currentPos.getX() + 1, startPos.getY(), currentPos.getZ());
@@ -61,6 +61,8 @@ public class TilePump extends TileEntity implements ITickable {
             if (currentPos.getX() >= startPos.getX() + RangedPumps.INSTANCE.range) {
                 currentPos = new BlockPos(startPos.getX(), startPos.getY(), currentPos.getZ() + 1);
             }
+
+            markDirty();
 
             if (!isOverLastRow()) {
                 Block block = worldObj.getBlockState(currentPos).getBlock();
@@ -88,6 +90,8 @@ public class TilePump extends TileEntity implements ITickable {
                 }
             }
         }
+
+        ticks++;
     }
 
     private boolean isOverLastRow() {
