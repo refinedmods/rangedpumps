@@ -18,7 +18,7 @@ public enum EnumPumpState {
             case DONE:
                 return new TextComponentTranslation("block.rangedpumps:pump.state.done");
             default:
-                return new TextComponentTranslation("block.rangedpumps:pump.state.unknown");
+                return null;
         }
     }
 }

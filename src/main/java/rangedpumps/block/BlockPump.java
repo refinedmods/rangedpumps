@@ -46,7 +46,11 @@ public class BlockPump extends Block {
             if (tile instanceof TilePump) {
                 TilePump pump = (TilePump) tile;
 
-                player.addChatComponentMessage(EnumPumpState.getMessage(pump));
+                ITextComponent message = EnumPumpState.getMessage(pump);
+
+                if (message != null) {
+                    player.addChatComponentMessage(message);
+                }
 
                 if (pump.getTank().getFluidAmount() == 0) {
                     player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.contents.empty"));
