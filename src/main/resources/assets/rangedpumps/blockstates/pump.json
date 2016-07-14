@@ -1,0 +1,26 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube",
+    "textures": {
+      "particle": "rangedpumps:blocks/pump_side",
+      "down": "rangedpumps:blocks/pump_bottom",
+      "up": "rangedpumps:blocks/pump_top",
+      "north": "rangedpumps:blocks/pump_side",
+      "east": "rangedpumps:blocks/pump_side",
+      "south": "rangedpumps:blocks/pump_side",
+      "west": "rangedpumps:blocks/pump_side"
+    }
+  },
+  "variants": {
+    "inventory": [
+      {
+        "transform": "forge:default-block",
+        "y": 0
+      }
+    ],
+    "normal": {
+      "model": "cube"
+    }
+  }
+}
