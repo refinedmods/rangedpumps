@@ -9,6 +9,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import rangedpumps.RangedPumps;
@@ -49,7 +51,19 @@ public class BlockPump extends Block {
                 if (pump.getTank().getFluidAmount() == 0) {
                     player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.contents.empty"));
                 } else {
-                    player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.contents", pump.getTank().getFluidAmount(), new TextComponentTranslation(pump.getTank().getFluid().getUnlocalizedName())));
+                    String name = pump.getTank().getFluid().getUnlocalizedName();
+                    
+                    ITextComponent nameComponent;
+
+                    if (name.equals("fluid.tile.water")) {
+                        nameComponent = new TextComponentString("water");
+                    } else if (name.equals("fluid.tile.lava")) {
+                        nameComponent = new TextComponentString("lava");
+                    } else {
+                        nameComponent = new TextComponentTranslation(name);
+                    }
+
+                    player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.contents", pump.getTank().getFluidAmount(), nameComponent));
                 }
             }
         }

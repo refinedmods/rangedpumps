@@ -9,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -73,9 +74,17 @@ public class TilePump extends TileEntity implements ITickable {
                 }
 
                 if (handler != null) {
-                    if (tank.fillInternal(handler.drain(RangedPumps.INSTANCE.capacity, true), true) > 0 && RangedPumps.INSTANCE.replaceLiquidWithStone) {
-                        worldObj.setBlockState(currentPos, Blocks.STONE.getDefaultState());
+                    FluidStack drained = handler.drain(RangedPumps.INSTANCE.capacity, false);
+
+                    if (drained != null && tank.fillInternal(drained, false) == drained.amount) {
+                        tank.fillInternal(handler.drain(RangedPumps.INSTANCE.capacity, true), true);
+
+                        if (RangedPumps.INSTANCE.replaceLiquidWithStone) {
+                            worldObj.setBlockState(currentPos, Blocks.STONE.getDefaultState());
+                        }
                     }
+                } else {
+                    worldObj.setBlockState(currentPos, Blocks.DIRT.getDefaultState());
                 }
             }
         }
