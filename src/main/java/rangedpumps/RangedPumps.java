@@ -16,7 +16,7 @@ import rangedpumps.proxy.CommonProxy;
 @Mod(modid = RangedPumps.ID, version = RangedPumps.VERSION)
 public final class RangedPumps {
     public static final String ID = "rangedpumps";
-    public static final String VERSION = "0.1";
+    public static final String VERSION = "0.2";
 
     @SidedProxy(clientSide = "rangedpumps.proxy.ClientProxy", serverSide = "rangedpumps.proxy.ServerProxy")
     public static CommonProxy PROXY;
