@@ -53,7 +53,7 @@ public class BlockPump extends Block {
                 }
 
                 if (pump.getTank().getFluidAmount() == 0) {
-                    player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.contents.empty"));
+                    player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.state_empty", pump.getEnergy().getEnergyStored(), pump.getEnergy().getMaxEnergyStored()));
                 } else {
                     String name = pump.getTank().getFluid().getUnlocalizedName();
 
@@ -67,9 +67,7 @@ public class BlockPump extends Block {
                         nameComponent = new TextComponentTranslation(name);
                     }
 
-                    int buckets = (int) Math.floor((float) pump.getTank().getFluidAmount() / 1000f);
-
-                    player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.contents", pump.getTank().getFluidAmount(), nameComponent, buckets));
+                    player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.state", pump.getTank().getFluidAmount(), nameComponent, pump.getEnergy().getEnergyStored(), pump.getEnergy().getMaxEnergyStored()));
                 }
             }
         }

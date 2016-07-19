@@ -35,7 +35,11 @@ public final class RangedPumps {
 
     public int range;
     public int speed;
-    public int capacity;
+    public int tankCapacity;
+    public int energyCapacity;
+    public int energyUsagePerMove;
+    public int energyUsagePerDrain;
+    public boolean usesEnergy;
     public boolean replaceLiquidWithStone;
 
     @EventHandler
@@ -46,7 +50,11 @@ public final class RangedPumps {
 
         range = config.getInt("range", "pump", 128, 0, 1024, "The range of the pump");
         speed = config.getInt("speed", "pump", 8, 0, 1024, "The interval in ticks for when to move on to the next block (higher is slower)");
-        capacity = config.getInt("capacity", "pump", Fluid.BUCKET_VOLUME * 32, Fluid.BUCKET_VOLUME, Integer.MAX_VALUE, "The capacity of the internal pump tank");
+        tankCapacity = config.getInt("tankCapacity", "pump", Fluid.BUCKET_VOLUME * 32, Fluid.BUCKET_VOLUME, Integer.MAX_VALUE, "The capacity of the internal pump tank");
+        energyCapacity = config.getInt("energyCapacity", "pump", 32000, 0, Integer.MAX_VALUE, "The capacity of the energy storage");
+        energyUsagePerMove = config.getInt("energyUsagePerMove", "pump", 0, 0, Integer.MAX_VALUE, "Energy drained when moving to the next block");
+        energyUsagePerDrain = config.getInt("energyUsagePerDrain", "pump", 100, 0, Integer.MAX_VALUE, "Energy drained when draining liquid");
+        usesEnergy = config.getBoolean("usesEnergy", "pump", true, "Whether the pump uses energy to work");
         replaceLiquidWithStone = config.getBoolean("replaceLiquidWithStone", "pump", true, "Replaces the liquid that is removed with stone to reduce lag");
 
         config.save();

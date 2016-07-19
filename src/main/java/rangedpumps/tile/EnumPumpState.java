@@ -5,6 +5,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 public enum EnumPumpState {
     UNKNOWN,
+    ENERGY,
     UNPOWERED,
     WORKING,
     FULL,
@@ -12,6 +13,8 @@ public enum EnumPumpState {
 
     public static ITextComponent getMessage(TilePump pump) {
         switch (pump.getState()) {
+            case ENERGY:
+                return new TextComponentTranslation("block.rangedpumps:pump.state.energy");
             case UNPOWERED:
                 return new TextComponentTranslation("block.rangedpumps:pump.state.unpowered");
             case WORKING:

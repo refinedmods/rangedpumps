@@ -1,5 +1,7 @@
 package rangedpumps.tile;
 
+import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
@@ -19,8 +21,9 @@ import net.minecraftforge.fluids.capability.wrappers.BlockLiquidWrapper;
 import net.minecraftforge.fluids.capability.wrappers.FluidBlockWrapper;
 import rangedpumps.RangedPumps;
 
-public class TilePump extends TileEntity implements ITickable {
+public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
     private FluidTank tank;
+    private EnergyStorage energy = new EnergyStorage(RangedPumps.INSTANCE.energyCapacity);
 
     private int ticks;
 
@@ -28,7 +31,7 @@ public class TilePump extends TileEntity implements ITickable {
     private BlockPos startPos;
 
     public TilePump() {
-        tank = new FluidTank(RangedPumps.INSTANCE.capacity) {
+        tank = new FluidTank(RangedPumps.INSTANCE.tankCapacity) {
             @Override
             protected void onContentsChanged() {
                 super.onContentsChanged();
@@ -71,6 +74,8 @@ public class TilePump extends TileEntity implements ITickable {
                 currentPos = new BlockPos(startPos.getX(), startPos.getY(), currentPos.getZ() + 1);
             }
 
+            energy.extractEnergy(RangedPumps.INSTANCE.energyUsagePerMove, false);
+
             markDirty();
 
             if (!isOverLastRow()) {
@@ -85,17 +90,23 @@ public class TilePump extends TileEntity implements ITickable {
                 }
 
                 if (handler != null) {
-                    FluidStack drained = handler.drain(RangedPumps.INSTANCE.capacity, false);
+                    FluidStack drained = handler.drain(RangedPumps.INSTANCE.tankCapacity, false);
 
                     if (drained != null && tank.fillInternal(drained, false) == drained.amount) {
-                        tank.fillInternal(handler.drain(RangedPumps.INSTANCE.capacity, true), true);
+                        tank.fillInternal(handler.drain(RangedPumps.INSTANCE.tankCapacity, true), true);
 
                         if (RangedPumps.INSTANCE.replaceLiquidWithStone) {
                             worldObj.setBlockState(currentPos, Blocks.STONE.getDefaultState());
                         }
+
+                        energy.extractEnergy(RangedPumps.INSTANCE.energyUsagePerDrain, false);
                     }
                 }
             }
+        }
+
+        if (!RangedPumps.INSTANCE.usesEnergy) {
+            energy.setEnergyStored(energy.getMaxEnergyStored());
         }
 
         ticks++;
@@ -109,7 +120,15 @@ public class TilePump extends TileEntity implements ITickable {
         return currentPos;
     }
 
+    public EnergyStorage getEnergy() {
+        return energy;
+    }
+
     public EnumPumpState getState() {
+        if (getEnergy().getEnergyStored() == 0) {
+            return EnumPumpState.ENERGY;
+        }
+
         if (currentPos != null && startPos != null) {
             if (isOverLastRow()) {
                 return EnumPumpState.DONE;
@@ -164,5 +183,25 @@ public class TilePump extends TileEntity implements ITickable {
         }
 
         return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
+        return energy.receiveEnergy(maxReceive, simulate);
+    }
+
+    @Override
+    public int getEnergyStored(EnumFacing from) {
+        return energy.getEnergyStored();
+    }
+
+    @Override
+    public int getMaxEnergyStored(EnumFacing from) {
+        return energy.getMaxEnergyStored();
+    }
+
+    @Override
+    public boolean canConnectEnergy(EnumFacing from) {
+        return true;
     }
 }

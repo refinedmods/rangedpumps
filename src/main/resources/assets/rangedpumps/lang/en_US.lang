@@ -2,10 +2,10 @@ itemGroup.rangedpumps=Ranged Pumps
 
 block.rangedpumps:pump.name=Pump
 
-block.rangedpumps:pump.state.unpowered=The pump needs a redstone signal to run.
-block.rangedpumps:pump.state.working=The pump is currently draining at %d, %d, %d.
-block.rangedpumps:pump.state.full=The internal tank of the pump is full.
-block.rangedpumps:pump.state.done=The pump is done working.
-
-block.rangedpumps:pump.contents=The pump contains %d mB of %s (%d buckets).
-block.rangedpumps:pump.contents.empty=The pump is empty.
+block.rangedpumps:pump.state=%d mB of %s - %d / %d RF
+block.rangedpumps:pump.state_empty=Empty - %d / %d RF
+block.rangedpumps:pump.state.energy=Insufficient energy.
+block.rangedpumps:pump.state.unpowered=Missing redstone signal.
+block.rangedpumps:pump.state.working=Draining at %d, %d, %d.
+block.rangedpumps:pump.state.full=Internal tank is full.
+block.rangedpumps:pump.state.done=Done.

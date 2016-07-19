@@ -1,5 +1,9 @@
 # Ranged Pumps Changelog
 
+### 0.3
+**Features**
+- Added optional RF usage
+
 ### 0.2
 **Bugfixes**
 - Increased default speed from 2 to 8 (which means it will run slower)
