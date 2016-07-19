@@ -3,7 +3,7 @@
   "modid": "rangedpumps",
   "name": "Ranged Pumps",
   "description": "Ranged Pumps is a simple mod that adds a pump that pumps liquids in a range",
-  "version": "0.2",
+  "version": "0.3",
   "mcversion": "1.10.2",
   "url": "",
   "updateUrl": "", 
