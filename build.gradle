@@ -17,7 +17,7 @@ group = "rangedpumps"
 archivesBaseName = "rangedpumps"
 
 minecraft {
-    version = "1.10.2-12.18.1.2014"
+    version = "1.10.2-12.18.1.2073"
     runDir = "run"
     mappings = "snapshot_20160518"
 }

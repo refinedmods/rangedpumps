@@ -3,6 +3,7 @@
 ### 0.3
 **Features**
 - Added optional RF usage
+- Updated Forge to 2073
 
 ### 0.2
 **Bugfixes**

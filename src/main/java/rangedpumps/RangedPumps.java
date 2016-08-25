@@ -54,7 +54,7 @@ public final class RangedPumps {
         energyCapacity = config.getInt("energyCapacity", "pump", 32000, 0, Integer.MAX_VALUE, "The capacity of the energy storage");
         energyUsagePerMove = config.getInt("energyUsagePerMove", "pump", 0, 0, Integer.MAX_VALUE, "Energy drained when moving to the next block");
         energyUsagePerDrain = config.getInt("energyUsagePerDrain", "pump", 100, 0, Integer.MAX_VALUE, "Energy drained when draining liquid");
-        usesEnergy = config.getBoolean("usesEnergy", "pump", true, "Whether the pump uses energy to work");
+        usesEnergy = config.getBoolean("usesEnergy", "pump", false, "Whether the pump uses energy to work");
         replaceLiquidWithStone = config.getBoolean("replaceLiquidWithStone", "pump", true, "Replaces the liquid that is removed with stone to reduce lag");
 
         config.save();

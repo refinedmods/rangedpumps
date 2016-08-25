@@ -49,6 +49,10 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
             return;
         }
 
+        if (!RangedPumps.INSTANCE.usesEnergy) {
+            energy.setEnergyStored(energy.getMaxEnergyStored());
+        }
+
         if (startPos == null) {
             startPos = pos.add(-RangedPumps.INSTANCE.range / 2, -1, -RangedPumps.INSTANCE.range / 2);
         }
@@ -105,10 +109,6 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
             }
         }
 
-        if (!RangedPumps.INSTANCE.usesEnergy) {
-            energy.setEnergyStored(energy.getMaxEnergyStored());
-        }
-
         ticks++;
     }
 
@@ -154,6 +154,8 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
 
         tag.setLong("CurrentPos", currentPos.toLong());
 
+        energy.writeToNBT(tag);
+
         tank.writeToNBT(tag);
 
         return tag;
@@ -167,9 +169,10 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
             currentPos = BlockPos.fromLong(tag.getLong("CurrentPos"));
         }
 
+        energy.readFromNBT(tag);
+
         tank.readFromNBT(tag);
     }
-
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -187,7 +190,13 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
 
     @Override
     public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
-        return energy.receiveEnergy(maxReceive, simulate);
+        int received = energy.receiveEnergy(maxReceive, simulate);
+
+        if (received > 0 && !simulate) {
+            markDirty();
+        }
+
+        return received;
     }
 
     @Override
