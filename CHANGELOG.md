@@ -2,6 +2,7 @@
 
 ### 0.4
 - Port to Minecraft 1.11 (raoulvdberge)
+- The pump now uses energy by default (raoulvdberge)
 - Removed RF support, use Forge Energy instead (raoulvdberge)
 - Added Russian translation (CorwinTheCat)
 
