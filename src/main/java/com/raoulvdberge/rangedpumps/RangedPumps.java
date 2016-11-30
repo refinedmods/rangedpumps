@@ -1,7 +1,9 @@
-package rangedpumps;
+package com.raoulvdberge.rangedpumps;
 
+import com.raoulvdberge.rangedpumps.block.BlockPump;
+import com.raoulvdberge.rangedpumps.proxy.ProxyCommon;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Mod;
@@ -10,24 +12,22 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import rangedpumps.block.BlockPump;
-import rangedpumps.proxy.CommonProxy;
 
 @Mod(modid = RangedPumps.ID, version = RangedPumps.VERSION)
 public final class RangedPumps {
     public static final String ID = "rangedpumps";
-    public static final String VERSION = "0.3";
+    public static final String VERSION = "0.4";
 
-    @SidedProxy(clientSide = "rangedpumps.proxy.ClientProxy", serverSide = "rangedpumps.proxy.ServerProxy")
-    public static CommonProxy PROXY;
+    @SidedProxy(clientSide = "com.raoulvdberge.rangedpumps.proxy.ProxyClient", serverSide = "com.raoulvdberge.rangedpumps.proxy.ProxyCommon")
+    public static ProxyCommon PROXY;
 
     @Mod.Instance
     public static RangedPumps INSTANCE;
 
     public static final CreativeTabs TAB = new CreativeTabs(ID) {
         @Override
-        public Item getTabIconItem() {
-            return Item.getItemFromBlock(PUMP);
+        public ItemStack getTabIconItem() {
+            return new ItemStack(PUMP);
         }
     };
 
@@ -54,7 +54,7 @@ public final class RangedPumps {
         energyCapacity = config.getInt("energyCapacity", "pump", 32000, 0, Integer.MAX_VALUE, "The capacity of the energy storage");
         energyUsagePerMove = config.getInt("energyUsagePerMove", "pump", 0, 0, Integer.MAX_VALUE, "Energy drained when moving to the next block");
         energyUsagePerDrain = config.getInt("energyUsagePerDrain", "pump", 100, 0, Integer.MAX_VALUE, "Energy drained when draining liquid");
-        usesEnergy = config.getBoolean("usesEnergy", "pump", false, "Whether the pump uses energy to work");
+        usesEnergy = config.getBoolean("usesEnergy", "pump", true, "Whether the pump uses energy to work");
         replaceLiquidWithStone = config.getBoolean("replaceLiquidWithStone", "pump", true, "Replaces the liquid that is removed with stone to reduce lag");
 
         config.save();

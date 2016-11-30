@@ -1,10 +1,12 @@
-package rangedpumps.block;
+package com.raoulvdberge.rangedpumps.block;
 
+import com.raoulvdberge.rangedpumps.RangedPumps;
+import com.raoulvdberge.rangedpumps.tile.EnumPumpState;
+import com.raoulvdberge.rangedpumps.tile.TilePump;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -13,11 +15,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import rangedpumps.RangedPumps;
-import rangedpumps.tile.EnumPumpState;
-import rangedpumps.tile.TilePump;
-
-import javax.annotation.Nullable;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 
 public class BlockPump extends Block {
     public BlockPump() {
@@ -39,21 +38,23 @@ public class BlockPump extends Block {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
             TileEntity tile = world.getTileEntity(pos);
 
             if (tile instanceof TilePump) {
                 TilePump pump = (TilePump) tile;
 
+                IEnergyStorage energy = pump.getCapability(CapabilityEnergy.ENERGY, null);
+
                 ITextComponent message = EnumPumpState.getMessage(pump);
 
                 if (message != null) {
-                    player.addChatComponentMessage(message);
+                    player.sendMessage(message);
                 }
 
                 if (pump.getTank().getFluidAmount() == 0) {
-                    player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.state_empty", pump.getEnergy().getEnergyStored(), pump.getEnergy().getMaxEnergyStored()));
+                    player.sendMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.state_empty", energy.getEnergyStored(), energy.getMaxEnergyStored()));
                 } else {
                     String name = pump.getTank().getFluid().getUnlocalizedName();
 
@@ -67,7 +68,7 @@ public class BlockPump extends Block {
                         nameComponent = new TextComponentTranslation(name);
                     }
 
-                    player.addChatComponentMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.state", pump.getTank().getFluidAmount(), nameComponent, pump.getEnergy().getEnergyStored(), pump.getEnergy().getMaxEnergyStored()));
+                    player.sendMessage(new TextComponentTranslation("block." + RangedPumps.ID + ":pump.state", pump.getTank().getFluidAmount(), nameComponent, energy.getEnergyStored(), energy.getMaxEnergyStored()));
                 }
             }
         }

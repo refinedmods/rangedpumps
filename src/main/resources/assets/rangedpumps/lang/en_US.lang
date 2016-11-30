@@ -2,8 +2,8 @@ itemGroup.rangedpumps=Ranged Pumps
 
 block.rangedpumps:pump.name=Pump
 
-block.rangedpumps:pump.state=%d mB of %s - %d / %d RF
-block.rangedpumps:pump.state_empty=Empty - %d / %d RF
+block.rangedpumps:pump.state=%d mB of %s - %d / %d FU
+block.rangedpumps:pump.state_empty=Empty - %d / %d FU
 block.rangedpumps:pump.state.energy=Insufficient energy.
 block.rangedpumps:pump.state.unpowered=Missing redstone signal.
 block.rangedpumps:pump.state.working=Draining at %d, %d, %d.

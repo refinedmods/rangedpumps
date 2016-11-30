@@ -1,4 +1,4 @@
-package rangedpumps.tile;
+package com.raoulvdberge.rangedpumps.tile;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;

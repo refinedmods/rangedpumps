@@ -1,5 +1,10 @@
 # Ranged Pumps Changelog
 
+### 0.4
+- Port to Minecraft 1.11 (raoulvdberge)
+- Removed RF support, use Forge Energy instead (raoulvdberge)
+- Added Russian translation (CorwinTheCat)
+
 ### 0.3
 **Features**
 - Added optional RF usage

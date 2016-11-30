@@ -1,5 +1,8 @@
-package rangedpumps.proxy;
+package com.raoulvdberge.rangedpumps.proxy;
 
+import com.raoulvdberge.rangedpumps.RangedPumps;
+import com.raoulvdberge.rangedpumps.item.ItemBlockPump;
+import com.raoulvdberge.rangedpumps.tile.TilePump;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -7,11 +10,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import rangedpumps.RangedPumps;
-import rangedpumps.item.ItemBlockPump;
-import rangedpumps.tile.TilePump;
 
-public class CommonProxy {
+public class ProxyCommon {
     public void preInit(FMLPreInitializationEvent e) {
         GameRegistry.registerTileEntity(TilePump.class, RangedPumps.ID + ":pump");
 

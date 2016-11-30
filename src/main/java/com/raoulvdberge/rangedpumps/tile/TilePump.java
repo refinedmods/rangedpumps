@@ -1,7 +1,6 @@
-package rangedpumps.tile;
+package com.raoulvdberge.rangedpumps.tile;
 
-import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyReceiver;
+import com.raoulvdberge.rangedpumps.RangedPumps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
@@ -11,6 +10,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -19,11 +21,12 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.wrappers.BlockLiquidWrapper;
 import net.minecraftforge.fluids.capability.wrappers.FluidBlockWrapper;
-import rangedpumps.RangedPumps;
 
-public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
+import javax.annotation.Nullable;
+
+public class TilePump extends TileEntity implements ITickable {
     private FluidTank tank;
-    private EnergyStorage energy = new EnergyStorage(RangedPumps.INSTANCE.energyCapacity);
+    private IEnergyStorage energy = new EnergyStorage(RangedPumps.INSTANCE.energyCapacity);
 
     private int ticks;
 
@@ -45,12 +48,12 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
 
     @Override
     public void update() {
-        if (worldObj.isRemote) {
+        if (getWorld().isRemote) {
             return;
         }
 
         if (!RangedPumps.INSTANCE.usesEnergy) {
-            energy.setEnergyStored(energy.getMaxEnergyStored());
+            energy.receiveEnergy(energy.getMaxEnergyStored(), false);
         }
 
         if (startPos == null) {
@@ -83,14 +86,14 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
             markDirty();
 
             if (!isOverLastRow()) {
-                Block block = worldObj.getBlockState(currentPos).getBlock();
+                Block block = getWorld().getBlockState(currentPos).getBlock();
 
                 IFluidHandler handler = null;
 
                 if (block instanceof BlockLiquid) {
-                    handler = new BlockLiquidWrapper((BlockLiquid) block, worldObj, currentPos);
+                    handler = new BlockLiquidWrapper((BlockLiquid) block, getWorld(), currentPos);
                 } else if (block instanceof IFluidBlock) {
-                    handler = new FluidBlockWrapper((IFluidBlock) block, worldObj, currentPos);
+                    handler = new FluidBlockWrapper((IFluidBlock) block, getWorld(), currentPos);
                 }
 
                 if (handler != null) {
@@ -100,7 +103,7 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
                         tank.fillInternal(handler.drain(RangedPumps.INSTANCE.tankCapacity, true), true);
 
                         if (RangedPumps.INSTANCE.replaceLiquidWithStone) {
-                            worldObj.setBlockState(currentPos, Blocks.STONE.getDefaultState());
+                            getWorld().setBlockState(currentPos, Blocks.STONE.getDefaultState());
                         }
 
                         energy.extractEnergy(RangedPumps.INSTANCE.energyUsagePerDrain, false);
@@ -120,19 +123,15 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
         return currentPos;
     }
 
-    public EnergyStorage getEnergy() {
-        return energy;
-    }
-
     public EnumPumpState getState() {
-        if (getEnergy().getEnergyStored() == 0) {
+        if (energy.getEnergyStored() == 0) {
             return EnumPumpState.ENERGY;
         }
 
         if (currentPos != null && startPos != null) {
             if (isOverLastRow()) {
                 return EnumPumpState.DONE;
-            } else if (!worldObj.isBlockPowered(pos)) {
+            } else if (!getWorld().isBlockPowered(pos)) {
                 return EnumPumpState.UNPOWERED;
             } else if (tank.getFluidAmount() > tank.getCapacity() - Fluid.BUCKET_VOLUME) {
                 return EnumPumpState.FULL;
@@ -153,8 +152,7 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
         super.writeToNBT(tag);
 
         tag.setLong("CurrentPos", currentPos.toLong());
-
-        energy.writeToNBT(tag);
+        tag.setInteger("Energy", energy.getEnergyStored());
 
         tank.writeToNBT(tag);
 
@@ -169,48 +167,26 @@ public class TilePump extends TileEntity implements ITickable, IEnergyReceiver {
             currentPos = BlockPos.fromLong(tag.getLong("CurrentPos"));
         }
 
-        energy.readFromNBT(tag);
+        if (tag.hasKey("Energy")) {
+            energy.receiveEnergy(tag.getInteger("Energy"), false);
+        }
 
         tank.readFromNBT(tag);
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return (T) tank;
+        } else if (capability == CapabilityEnergy.ENERGY) {
+            return (T) energy;
         }
 
         return super.getCapability(capability, facing);
-    }
-
-    @Override
-    public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
-        int received = energy.receiveEnergy(maxReceive, simulate);
-
-        if (received > 0 && !simulate) {
-            markDirty();
-        }
-
-        return received;
-    }
-
-    @Override
-    public int getEnergyStored(EnumFacing from) {
-        return energy.getEnergyStored();
-    }
-
-    @Override
-    public int getMaxEnergyStored(EnumFacing from) {
-        return energy.getMaxEnergyStored();
-    }
-
-    @Override
-    public boolean canConnectEnergy(EnumFacing from) {
-        return true;
     }
 }

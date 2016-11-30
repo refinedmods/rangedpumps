@@ -1,6 +1,6 @@
-package rangedpumps.item;
+package com.raoulvdberge.rangedpumps.item;
 
-import rangedpumps.RangedPumps;
+import com.raoulvdberge.rangedpumps.RangedPumps;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 

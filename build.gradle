@@ -12,14 +12,15 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "0.3"
+version = "0.4"
 group = "rangedpumps"
 archivesBaseName = "rangedpumps"
 
 minecraft {
-    version = "1.10.2-12.18.1.2073"
+    version = "1.11-13.19.0.2160"
     runDir = "run"
-    mappings = "snapshot_20160518"
+    useDepAts = true
+    mappings = "snapshot_20161126"
 }
 
 dependencies {
