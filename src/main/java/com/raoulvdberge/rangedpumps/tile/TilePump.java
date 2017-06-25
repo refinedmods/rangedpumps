@@ -192,14 +192,14 @@ public class TilePump extends TileEntity implements ITickable {
     }
 
     PumpState getState() {
-        if (energy.getEnergyStored() == 0) {
-            return PumpState.ENERGY;
+        if (range > RangedPumps.INSTANCE.range) {
+            return PumpState.DONE;
         } else if (world.isBlockPowered(pos)) {
             return PumpState.REDSTONE;
+        } else if (energy.getEnergyStored() == 0) {
+            return PumpState.ENERGY;
         } else if (tank.getFluidAmount() > tank.getCapacity() - Fluid.BUCKET_VOLUME) {
             return PumpState.FULL;
-        } else if (range > RangedPumps.INSTANCE.range) {
-            return PumpState.DONE;
         } else {
             return PumpState.WORKING;
         }
