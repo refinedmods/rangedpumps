@@ -4,7 +4,7 @@
 - Port to Minecraft 1.12 (raoulvdberge)
 - Changed scanning system to scan nearest blocks first (raoulvdberge)
 - The pump no longer requires a redstone signal. If a redstone signal is given, the pump will pause instead (raoulvdberge)
-- The pump now auto-pushes liquids to neighbor tanks (raoulvdberge)
+- The pump now auto-pushes liquids to neighboring tanks (raoulvdberge)
 
 ### 0.4
 - Port to Minecraft 1.11 (raoulvdberge)
