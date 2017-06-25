@@ -61,9 +61,9 @@ public class BlockPump extends Block {
                     ITextComponent nameComponent;
 
                     if (name.equals("fluid.tile.water")) {
-                        nameComponent = new TextComponentString("water");
+                        nameComponent = new TextComponentString("Water");
                     } else if (name.equals("fluid.tile.lava")) {
-                        nameComponent = new TextComponentString("lava");
+                        nameComponent = new TextComponentString("Lava");
                     } else {
                         nameComponent = new TextComponentTranslation(name);
                     }
