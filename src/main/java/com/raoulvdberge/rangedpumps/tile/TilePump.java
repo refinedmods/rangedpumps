@@ -28,6 +28,7 @@ import net.minecraftforge.fluids.capability.wrappers.FluidBlockWrapper;
 
 import javax.annotation.Nullable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class TilePump extends TileEntity implements ITickable {
@@ -104,6 +105,33 @@ public class TilePump extends TileEntity implements ITickable {
 
         if (!RangedPumps.INSTANCE.usesEnergy) {
             energy.receiveEnergy(energy.getMaxEnergyStored(), false);
+        }
+
+        if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
+            List<IFluidHandler> fluidHandlers = new LinkedList<>();
+
+            for (EnumFacing facing : EnumFacing.VALUES) {
+                TileEntity tile = world.getTileEntity(pos.offset(facing));
+
+                if (tile != null && tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite())) {
+                    IFluidHandler handler = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite());
+
+                    if (handler != null) {
+                        fluidHandlers.add(handler);
+                    }
+                }
+            }
+
+            if (!fluidHandlers.isEmpty()) {
+                int transfer = (int) Math.floor((float) tank.getFluidAmount() / (float) fluidHandlers.size());
+
+                for (IFluidHandler fluidHandler : fluidHandlers) {
+                    FluidStack toFill = tank.getFluid().copy();
+                    toFill.amount = transfer;
+
+                    tank.drain(fluidHandler.fill(toFill, true), true);
+                }
+            }
         }
 
         if ((RangedPumps.INSTANCE.speed == 0 || (ticks % RangedPumps.INSTANCE.speed == 0)) && getState() == PumpState.WORKING) {
