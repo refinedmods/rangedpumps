@@ -3,36 +3,38 @@ package com.raoulvdberge.rangedpumps.proxy;
 import com.raoulvdberge.rangedpumps.RangedPumps;
 import com.raoulvdberge.rangedpumps.item.ItemBlockPump;
 import com.raoulvdberge.rangedpumps.tile.TilePump;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ProxyCommon {
     public void preInit(FMLPreInitializationEvent e) {
+        MinecraftForge.EVENT_BUS.register(this);
+
         GameRegistry.registerTileEntity(TilePump.class, RangedPumps.ID + ":pump");
+    }
 
-        GameRegistry.register(RangedPumps.PUMP);
-        GameRegistry.register(new ItemBlockPump());
+    @SubscribeEvent
+    public void registerBlocks(RegistryEvent.Register<Block> registry) {
+        registry.getRegistry().register(RangedPumps.PUMP);
+    }
 
-        GameRegistry.addRecipe(new ItemStack(RangedPumps.PUMP),
-            "opo",
-            "ldw",
-            "opo",
-            'o', new ItemStack(Blocks.OBSIDIAN),
-            'p', new ItemStack(Items.IRON_PICKAXE),
-            'l', new ItemStack(Items.LAVA_BUCKET),
-            'w', new ItemStack(Items.WATER_BUCKET),
-            'd', new ItemStack(Blocks.DIAMOND_BLOCK)
-        );
+    @SubscribeEvent
+    public void registerItems(RegistryEvent.Register<Item> registry) {
+        registry.getRegistry().register(new ItemBlockPump());
     }
 
     public void init(FMLInitializationEvent e) {
+        // NO OP
     }
 
     public void postInit(FMLPostInitializationEvent e) {
+        // NO OP
     }
 }

@@ -1,5 +1,10 @@
 # Ranged Pumps Changelog
 
+### 0.5
+- Port to Minecraft 1.12 (raoulvdberge)
+- Changed scanning system to scan nearest blocks first (raoulvdberge)
+- The pump no longer requires a redstone signal. If a redstone signal is given, the pump will pause instead (raoulvdberge)
+
 ### 0.4
 - Port to Minecraft 1.11 (raoulvdberge)
 - The pump now uses energy by default in the config (raoulvdberge)

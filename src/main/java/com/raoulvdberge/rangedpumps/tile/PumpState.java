@@ -3,10 +3,9 @@ package com.raoulvdberge.rangedpumps.tile;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public enum EnumPumpState {
-    UNKNOWN,
+public enum PumpState {
     ENERGY,
-    UNPOWERED,
+    REDSTONE,
     WORKING,
     FULL,
     DONE;
@@ -15,10 +14,10 @@ public enum EnumPumpState {
         switch (pump.getState()) {
             case ENERGY:
                 return new TextComponentTranslation("block.rangedpumps:pump.state.energy");
-            case UNPOWERED:
-                return new TextComponentTranslation("block.rangedpumps:pump.state.unpowered");
+            case REDSTONE:
+                return new TextComponentTranslation("block.rangedpumps:pump.state.redstone");
             case WORKING:
-                return new TextComponentTranslation("block.rangedpumps:pump.state.working", pump.getCurrentPosition().getX(), pump.getCurrentPosition().getY(), pump.getCurrentPosition().getZ());
+                return new TextComponentTranslation("block.rangedpumps:pump.state.working", pump.getCurrentPosition().getX(), pump.getCurrentPosition().getY(), pump.getCurrentPosition().getZ(), pump.getRange());
             case FULL:
                 return new TextComponentTranslation("block.rangedpumps:pump.state.full");
             case DONE:

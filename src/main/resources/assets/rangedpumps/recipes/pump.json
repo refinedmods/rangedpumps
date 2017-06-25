@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OPO",
+    "LDW",
+    "OPO"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "P": {
+      "item": "minecraft:iron_pickaxe"
+    },
+    "L": {
+      "item": "minecraft:lava_bucket"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "result": {
+    "item": "rangedpumps:pump"
+  }
+}

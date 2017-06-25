@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = RangedPumps.ID, version = RangedPumps.VERSION)
 public final class RangedPumps {
     public static final String ID = "rangedpumps";
-    public static final String VERSION = "0.5";
+    public static final String VERSION = "0.6";
 
     @SidedProxy(clientSide = "com.raoulvdberge.rangedpumps.proxy.ProxyClient", serverSide = "com.raoulvdberge.rangedpumps.proxy.ProxyCommon")
     public static ProxyCommon PROXY;
@@ -48,8 +48,8 @@ public final class RangedPumps {
 
         Configuration config = new Configuration(e.getSuggestedConfigurationFile());
 
-        range = config.getInt("range", "pump", 128, 0, 1024, "The range of the pump");
-        speed = config.getInt("speed", "pump", 8, 0, 1024, "The interval in ticks for when to move on to the next block (higher is slower)");
+        range = config.getInt("range", "pump", 64, 0, 1024, "The range of the pump");
+        speed = config.getInt("speed", "pump", 4, 0, 1024, "The interval in ticks for when to move on to the next block (higher is slower)");
         tankCapacity = config.getInt("tankCapacity", "pump", Fluid.BUCKET_VOLUME * 32, Fluid.BUCKET_VOLUME, Integer.MAX_VALUE, "The capacity of the internal pump tank");
         energyCapacity = config.getInt("energyCapacity", "pump", 32000, 0, Integer.MAX_VALUE, "The capacity of the energy storage");
         energyUsagePerMove = config.getInt("energyUsagePerMove", "pump", 0, 0, Integer.MAX_VALUE, "Energy drained when moving to the next block");

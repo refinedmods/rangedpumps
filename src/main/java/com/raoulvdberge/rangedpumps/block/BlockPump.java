@@ -1,7 +1,7 @@
 package com.raoulvdberge.rangedpumps.block;
 
 import com.raoulvdberge.rangedpumps.RangedPumps;
-import com.raoulvdberge.rangedpumps.tile.EnumPumpState;
+import com.raoulvdberge.rangedpumps.tile.PumpState;
 import com.raoulvdberge.rangedpumps.tile.TilePump;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -47,7 +47,7 @@ public class BlockPump extends Block {
 
                 IEnergyStorage energy = pump.getCapability(CapabilityEnergy.ENERGY, null);
 
-                ITextComponent message = EnumPumpState.getMessage(pump);
+                ITextComponent message = PumpState.getMessage(pump);
 
                 if (message != null) {
                     player.sendMessage(message);
