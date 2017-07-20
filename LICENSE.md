@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-Copyright © 2015 - 2016 Ranged Pumps contributors
+Copyright © 2016 - 2017 Ranged Pumps contributors
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
