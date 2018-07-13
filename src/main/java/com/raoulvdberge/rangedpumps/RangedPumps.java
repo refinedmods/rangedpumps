@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = RangedPumps.ID, version = RangedPumps.VERSION)
 public final class RangedPumps {
     public static final String ID = "rangedpumps";
-    public static final String VERSION = "0.5";
+    public static final String VERSION = "@version@";
 
     @SidedProxy(clientSide = "com.raoulvdberge.rangedpumps.proxy.ProxyClient", serverSide = "com.raoulvdberge.rangedpumps.proxy.ProxyCommon")
     public static ProxyCommon PROXY;

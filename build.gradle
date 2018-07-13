@@ -15,6 +15,10 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 version = "0.5"
+def env = System.getenv()
+if (env.BUILD_NUMBER) {
+    version = version + "-" + "${env.BUILD_NUMBER}"
+}
 group = "rangedpumps"
 archivesBaseName = "rangedpumps"
 
@@ -26,6 +30,9 @@ minecraft {
     runDir = "run"
     useDepAts = true
     mappings = "snapshot_20170624"
+    
+    replaceIn "RangedPumps.java"
+    replace "@version@", project.version
 }
 
 dependencies {
@@ -38,9 +45,9 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
 
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
@@ -68,7 +75,7 @@ publishing {
 publishing {
     repositories {
         maven {
-          url "/var/www/repo"
+            url "/var/www/repo"
         }
     }
 }
