@@ -65,7 +65,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = project.group
             artifactId = project.archivesBaseName
-            version = project.version + '-' + System.getenv('BUILD_NUMBER')
+            version = project.version
             artifact sourceJar
             artifact jar
         }
