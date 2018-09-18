@@ -1,5 +1,8 @@
 # Ranged Pumps Changelog
 
+### 0.5.1
+- Added Russian translation (DDShadowRU)
+
 ### 0.5
 - Port to Minecraft 1.12 (raoulvdberge)
 - Changed scanning system to scan nearest blocks first (raoulvdberge)
