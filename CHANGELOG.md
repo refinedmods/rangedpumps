@@ -1,5 +1,8 @@
 # Ranged Pumps Changelog
 
+### 0.6
+- Port to Minecraft 1.14 (raoulvdberge)
+
 ### 0.5.1
 - Added Russian translation (DDShadowRU)
 
