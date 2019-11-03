@@ -18,7 +18,7 @@ public class CommonSetup {
 
     @SubscribeEvent
     public void onRegisterItems(RegistryEvent.Register<Item> registry) {
-        registry.getRegistry().register(new BlockItem(PumpBlock.BLOCK, new Item.Properties().group(RangedPumps.MAIN_GROUP)));
+        registry.getRegistry().register(new BlockItem(PumpBlock.BLOCK, new Item.Properties().group(RangedPumps.MAIN_GROUP)).setRegistryName(RangedPumps.ID, "pump"));
     }
 
     @SubscribeEvent
