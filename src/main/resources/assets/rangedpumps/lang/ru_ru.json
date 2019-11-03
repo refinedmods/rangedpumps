@@ -1,0 +1,11 @@
+{
+  "itemGroup.rangedpumps": "Ranged Pumps",
+  "block.rangedpumps.pump": "Помпа",
+  "block.rangedpumps.pump.state": "%d мВ %s - %d / %d FE",
+  "block.rangedpumps.pump.state_empty": "Пустой - %d / %d FE",
+  "block.rangedpumps.pump.state.energy": "Недостаточно энергии.",
+  "block.rangedpumps.pump.state.redstone": "Выключена сигналом красного камня.",
+  "block.rangedpumps.pump.state.working": "Сканирование на координатах %d, %d, %d (радиус: %d).",
+  "block.rangedpumps.pump.state.full": "Внутренний резервуар заполнен.",
+  "block.rangedpumps.pump.state.done": "Завершено."
+}
