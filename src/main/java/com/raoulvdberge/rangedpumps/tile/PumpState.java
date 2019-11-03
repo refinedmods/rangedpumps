@@ -1,7 +1,7 @@
 package com.raoulvdberge.rangedpumps.tile;
 
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public enum PumpState {
     ENERGY,
@@ -10,18 +10,18 @@ public enum PumpState {
     FULL,
     DONE;
 
-    public static ITextComponent getMessage(TilePump pump) {
+    public static ITextComponent getMessage(PumpTile pump) {
         switch (pump.getState()) {
             case ENERGY:
-                return new TextComponentTranslation("block.rangedpumps:pump.state.energy");
+                return new TranslationTextComponent("block.rangedpumps.pump.state.energy");
             case REDSTONE:
-                return new TextComponentTranslation("block.rangedpumps:pump.state.redstone");
+                return new TranslationTextComponent("block.rangedpumps.pump.state.redstone");
             case WORKING:
-                return new TextComponentTranslation("block.rangedpumps:pump.state.working", pump.getCurrentPosition().getX(), pump.getCurrentPosition().getY(), pump.getCurrentPosition().getZ(), pump.getRange());
+                return new TranslationTextComponent("block.rangedpumps.pump.state.working", pump.getCurrentPosition().getX(), pump.getCurrentPosition().getY(), pump.getCurrentPosition().getZ(), pump.getRange());
             case FULL:
-                return new TextComponentTranslation("block.rangedpumps:pump.state.full");
+                return new TranslationTextComponent("block.rangedpumps.pump.state.full");
             case DONE:
-                return new TextComponentTranslation("block.rangedpumps:pump.state.done");
+                return new TranslationTextComponent("block.rangedpumps.pump.state.done");
             default:
                 return null;
         }

@@ -1,73 +1,30 @@
 package com.raoulvdberge.rangedpumps;
 
-import com.raoulvdberge.rangedpumps.block.BlockPump;
-import com.raoulvdberge.rangedpumps.proxy.ProxyCommon;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fluids.Fluid;
+import com.raoulvdberge.rangedpumps.config.ServerConfig;
+import com.raoulvdberge.rangedpumps.item.group.MainItemGroup;
+import com.raoulvdberge.rangedpumps.setup.CommonSetup;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(modid = RangedPumps.ID, version = RangedPumps.VERSION)
+@Mod(RangedPumps.ID)
 public final class RangedPumps {
     public static final String ID = "rangedpumps";
-    public static final String VERSION = "@version@";
+    public static final ItemGroup MAIN_GROUP = new MainItemGroup();
+    public static final ServerConfig SERVER_CONFIG = new ServerConfig();
 
-    @SidedProxy(clientSide = "com.raoulvdberge.rangedpumps.proxy.ProxyClient", serverSide = "com.raoulvdberge.rangedpumps.proxy.ProxyCommon")
-    public static ProxyCommon PROXY;
+    public RangedPumps() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.getSpec());
 
-    @Mod.Instance
-    public static RangedPumps INSTANCE;
+        CommonSetup commonSetup = new CommonSetup();
 
-    public static final CreativeTabs TAB = new CreativeTabs(ID) {
-        @Override
-        public ItemStack getTabIconItem() {
-            return new ItemStack(PUMP);
-        }
-    };
-
-
-    public static final BlockPump PUMP = new BlockPump();
-
-    public int range;
-    public int speed;
-    public int tankCapacity;
-    public int energyCapacity;
-    public int energyUsagePerMove;
-    public int energyUsagePerDrain;
-    public boolean usesEnergy;
-    public boolean replaceLiquidWithStone;
-
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent e) {
-        PROXY.preInit(e);
-
-        Configuration config = new Configuration(e.getSuggestedConfigurationFile());
-
-        range = config.getInt("range", "pump", 64, 0, 1024, "The range of the pump");
-        speed = config.getInt("speed", "pump", 8, 0, 1024, "The interval in ticks for when to move on to the next block (higher is slower)");
-        tankCapacity = config.getInt("tankCapacity", "pump", Fluid.BUCKET_VOLUME * 32, Fluid.BUCKET_VOLUME, Integer.MAX_VALUE, "The capacity of the internal pump tank");
-        energyCapacity = config.getInt("energyCapacity", "pump", 32000, 0, Integer.MAX_VALUE, "The capacity of the energy storage");
-        energyUsagePerMove = config.getInt("energyUsagePerMove", "pump", 0, 0, Integer.MAX_VALUE, "Energy drained when moving to the next block");
-        energyUsagePerDrain = config.getInt("energyUsagePerDrain", "pump", 100, 0, Integer.MAX_VALUE, "Energy drained when draining liquid");
-        usesEnergy = config.getBoolean("usesEnergy", "pump", true, "Whether the pump uses energy to work");
-        replaceLiquidWithStone = config.getBoolean("replaceLiquidWithStone", "pump", true, "Replaces the liquid that is removed with stone to reduce lag");
-
-        config.save();
-    }
-
-    @EventHandler
-    public void init(FMLInitializationEvent e) {
-        PROXY.init(e);
-    }
-
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent e) {
-        PROXY.postInit(e);
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Block.class, commonSetup::onRegisterBlocks);
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(TileEntityType.class, commonSetup::onRegisterTiles);
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Item.class, commonSetup::onRegisterItems);
     }
 }
