@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "rangedpumps:block/pump_side",
+    "down": "rangedpumps:block/pump_bottom",
+    "up": "rangedpumps:block/pump_top",
+    "north": "rangedpumps:block/pump_side",
+    "east": "rangedpumps:block/pump_side",
+    "south": "rangedpumps:block/pump_side",
+    "west": "rangedpumps:block/pump_side"
+  }
+}
