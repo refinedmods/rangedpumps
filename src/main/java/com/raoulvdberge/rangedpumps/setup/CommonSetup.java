@@ -12,13 +12,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class CommonSetup {
     @SubscribeEvent
-    public void onRegisterBlocks(RegistryEvent.Register<Block> registry) {
-        registry.getRegistry().register(new PumpBlock());
+    public void onRegisterBlocks(RegistryEvent.Register<Block> e) {
+        e.getRegistry().register(new PumpBlock());
     }
 
     @SubscribeEvent
-    public void onRegisterItems(RegistryEvent.Register<Item> registry) {
-        registry.getRegistry().register(new BlockItem(PumpBlock.BLOCK, new Item.Properties().group(RangedPumps.MAIN_GROUP)).setRegistryName(RangedPumps.ID, "pump"));
+    public void onRegisterItems(RegistryEvent.Register<Item> e) {
+        e.getRegistry().register(new BlockItem(PumpBlock.BLOCK, new Item.Properties().group(RangedPumps.MAIN_GROUP)).setRegistryName(RangedPumps.ID, "pump"));
     }
 
     @SubscribeEvent

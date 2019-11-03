@@ -39,19 +39,7 @@ public class PumpTile extends TileEntity implements ITickableTileEntity {
     @ObjectHolder(RangedPumps.ID + ":pump")
     public static final TileEntityType<PumpTile> TYPE = null;
 
-    private FluidTank tank = new FluidTank(RangedPumps.SERVER_CONFIG.getTankCapacity()) {
-        @Override
-        protected void onContentsChanged() {
-            super.onContentsChanged();
-
-            markDirty();
-        }
-
-        @Override
-        public int fill(FluidStack resource, FluidAction action) {
-            return 0;
-        }
-    };
+    private PumpTank tank = new PumpTank();
     private IEnergyStorage energy = new EnergyStorage(RangedPumps.SERVER_CONFIG.getEnergyCapacity());
 
     private final LazyOptional<IEnergyStorage> energyProxyCap = LazyOptional.of(() -> energy);
@@ -169,11 +157,11 @@ public class PumpTile extends TileEntity implements ITickableTileEntity {
 
             FluidStack drained = drainAt(currentPos, IFluidHandler.FluidAction.SIMULATE);
 
-            if (!drained.isEmpty() && tank.fill(drained, IFluidHandler.FluidAction.SIMULATE) == drained.getAmount()) {
+            if (!drained.isEmpty() && tank.fillInternal(drained, IFluidHandler.FluidAction.SIMULATE) == drained.getAmount()) {
                 drained = drainAt(currentPos, IFluidHandler.FluidAction.EXECUTE);
 
                 if (!drained.isEmpty()) {
-                    tank.fill(drained, IFluidHandler.FluidAction.EXECUTE);
+                    tank.fillInternal(drained, IFluidHandler.FluidAction.EXECUTE);
 
                     if (RangedPumps.SERVER_CONFIG.getReplaceLiquidWithStone()) {
                         world.setBlockState(currentPos, Blocks.STONE.getDefaultState());
@@ -304,5 +292,20 @@ public class PumpTile extends TileEntity implements ITickableTileEntity {
         }
 
         return super.getCapability(cap, direction);
+    }
+
+    private class PumpTank extends FluidTank {
+        public PumpTank() {
+            super(RangedPumps.SERVER_CONFIG.getTankCapacity());
+        }
+
+        @Override
+        public int fill(FluidStack resource, FluidAction action) {
+            return 0;
+        }
+
+        public int fillInternal(FluidStack resource, FluidAction action) {
+            return super.fill(resource, action);
+        }
     }
 }
