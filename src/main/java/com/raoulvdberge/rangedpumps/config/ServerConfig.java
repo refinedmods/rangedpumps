@@ -28,7 +28,7 @@ public class ServerConfig {
         energyUsagePerDrain = builder.comment("Energy drained when draining liquid").defineInRange("energyUsagePerDrain", 100, 0, Integer.MAX_VALUE);
         useEnergy = builder.comment("Whether the pump uses energy to work").define("useEnergy", true);
         replaceLiquidWithBlock = builder.comment("Replaces liquids that are removed with a block defined in 'blockIdToReplaceLiquidsWith' (to reduce lag)").define("replaceLiquidWithBlock", true);
-        blockIdToReplaceLiquidsWith = builder.comment("The block that liquids are replaced with when 'replaceLiquidWithBlock' is on").define("blockIdToReplaceLiquidsWith", "minecraft:stone");
+        blockIdToReplaceLiquidsWith = builder.comment("The block that liquids are replaced with when 'replaceLiquidWithBlock' is true").define("blockIdToReplaceLiquidsWith", "minecraft:stone");
 
         builder.pop();
 
