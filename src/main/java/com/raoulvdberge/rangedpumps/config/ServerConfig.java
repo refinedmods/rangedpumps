@@ -14,7 +14,8 @@ public class ServerConfig {
     private ForgeConfigSpec.IntValue energyUsagePerMove;
     private ForgeConfigSpec.IntValue energyUsagePerDrain;
     private ForgeConfigSpec.BooleanValue useEnergy;
-    private ForgeConfigSpec.BooleanValue replaceLiquidWithStone;
+    private ForgeConfigSpec.BooleanValue replaceLiquidWithBlock;
+    private ForgeConfigSpec.ConfigValue<String> blockIdToReplaceLiquidsWith;
 
     public ServerConfig() {
         builder.push("pump");
@@ -26,7 +27,8 @@ public class ServerConfig {
         energyUsagePerMove = builder.comment("Energy drained when moving to the next block").defineInRange("energyUsagePerMove", 0, 0, Integer.MAX_VALUE);
         energyUsagePerDrain = builder.comment("Energy drained when draining liquid").defineInRange("energyUsagePerDrain", 100, 0, Integer.MAX_VALUE);
         useEnergy = builder.comment("Whether the pump uses energy to work").define("useEnergy", true);
-        replaceLiquidWithStone = builder.comment("Replaces the liquid that is removed with stone to reduce lag").define("replaceLiquidWithStone", true);
+        replaceLiquidWithBlock = builder.comment("Replaces liquids that are removed with a block defined in 'blockIdToReplaceLiquidsWith' (to reduce lag)").define("replaceLiquidWithBlock", true);
+        blockIdToReplaceLiquidsWith = builder.comment("The block that liquids are replaced with when 'replaceLiquidWithBlock' is on").define("blockIdToReplaceLiquidsWith", "minecraft:stone");
 
         builder.pop();
 
@@ -61,8 +63,12 @@ public class ServerConfig {
         return useEnergy.get();
     }
 
-    public boolean getReplaceLiquidWithStone() {
-        return replaceLiquidWithStone.get();
+    public boolean getReplaceLiquidWithBlock() {
+        return replaceLiquidWithBlock.get();
+    }
+
+    public String getBlockIdToReplaceLiquidsWith() {
+        return blockIdToReplaceLiquidsWith.get();
     }
 
     public ForgeConfigSpec getSpec() {

@@ -2,6 +2,7 @@
 
 ### 0.7
 - Port to Minecraft 1.15 (raoulvdberge)
+- You can now configure the block that liquids have to be replaced with (raoulvdberge)
 
 ### 0.6.1
 - Fix Pump not dropping when breaking (raoulvdberge)

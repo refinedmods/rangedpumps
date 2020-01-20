@@ -14,6 +14,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
@@ -27,6 +28,7 @@ import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
 import javax.annotation.Nonnull;
@@ -51,6 +53,7 @@ public class PumpTile extends TileEntity implements ITickableTileEntity {
     private BlockPos currentPos;
     private int range = -1;
     private Queue<BlockPos> surfaces = new LinkedList<>();
+    private Block blockToReplaceLiquidsWith;
 
     public PumpTile() {
         super(TYPE);
@@ -163,8 +166,14 @@ public class PumpTile extends TileEntity implements ITickableTileEntity {
                 if (!drained.isEmpty()) {
                     tank.fillInternal(drained, IFluidHandler.FluidAction.EXECUTE);
 
-                    if (RangedPumps.SERVER_CONFIG.getReplaceLiquidWithStone()) {
-                        world.setBlockState(currentPos, Blocks.STONE.getDefaultState());
+                    if (RangedPumps.SERVER_CONFIG.getReplaceLiquidWithBlock()) {
+                        if (blockToReplaceLiquidsWith == null) {
+                            blockToReplaceLiquidsWith = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(RangedPumps.SERVER_CONFIG.getBlockIdToReplaceLiquidsWith()));
+                        }
+
+                        if (blockToReplaceLiquidsWith != null) {
+                            world.setBlockState(currentPos, blockToReplaceLiquidsWith.getDefaultState());
+                        }
                     }
 
                     energy.extractEnergy(RangedPumps.SERVER_CONFIG.getEnergyUsagePerDrain(), false);
