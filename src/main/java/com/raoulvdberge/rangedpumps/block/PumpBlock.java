@@ -9,6 +9,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -45,7 +46,7 @@ public class PumpBlock extends Block {
 
     @Override
     @SuppressWarnings("deprecation")
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+    public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!world.isRemote) {
             TileEntity tile = world.getTileEntity(pos);
 
@@ -54,7 +55,7 @@ public class PumpBlock extends Block {
 
                 IEnergyStorage energy = pump.getCapability(CapabilityEnergy.ENERGY).orElse(null);
                 if (energy == null) {
-                    return true;
+                    return ActionResultType.SUCCESS;
                 }
 
                 ITextComponent message = PumpState.getMessage(pump);
@@ -71,6 +72,6 @@ public class PumpBlock extends Block {
             }
         }
 
-        return true;
+        return ActionResultType.SUCCESS;
     }
 }

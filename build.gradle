@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.6.1'
+version = '0.7'
 def env = System.getenv()
 if (env.BUILD_NUMBER) {
     version = version + "+" + "${env.BUILD_NUMBER}"
@@ -78,7 +78,7 @@ processResources {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.70'
+    minecraft 'net.minecraftforge:forge:1.15.1-30.0.41'
 }
 
 jar {

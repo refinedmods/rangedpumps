@@ -1,5 +1,8 @@
 # Ranged Pumps Changelog
 
+### 0.7
+- Port to Minecraft 1.15 (raoulvdberge)
+
 ### 0.6.1
 - Fix Pump not dropping when breaking (raoulvdberge)
 
