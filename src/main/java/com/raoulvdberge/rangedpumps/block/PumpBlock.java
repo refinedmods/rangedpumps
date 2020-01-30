@@ -46,7 +46,7 @@ public class PumpBlock extends Block {
 
     @Override
     @SuppressWarnings("deprecation")
-    public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!world.isRemote) {
             TileEntity tile = world.getTileEntity(pos);
 

@@ -253,7 +253,7 @@ public class PumpTile extends TileEntity implements ITickableTileEntity {
 
         ListNBT surfaces = new ListNBT();
 
-        this.surfaces.forEach(s -> surfaces.add(LongNBT.func_229698_a_(s.toLong())));
+        this.surfaces.forEach(s -> surfaces.add(LongNBT.valueOf(s.toLong())));
 
         tag.put("Surfaces", surfaces);
 

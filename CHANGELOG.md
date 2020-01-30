@@ -1,5 +1,8 @@
 # Ranged Pumps Changelog
 
+### 0.7.1
+- Port to Minecraft 1.15.2 (raoulvdberge)
+
 ### 0.7
 - Port to Minecraft 1.15 (raoulvdberge)
 - You can now configure the block that liquids have to be replaced with (raoulvdberge)
