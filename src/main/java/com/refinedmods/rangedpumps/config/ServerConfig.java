@@ -1,4 +1,4 @@
-package com.raoulvdberge.rangedpumps.config;
+package com.refinedmods.rangedpumps.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fluids.FluidAttributes;

@@ -1,8 +1,8 @@
-package com.raoulvdberge.rangedpumps.block;
+package com.refinedmods.rangedpumps.block;
 
-import com.raoulvdberge.rangedpumps.RangedPumps;
-import com.raoulvdberge.rangedpumps.tile.PumpState;
-import com.raoulvdberge.rangedpumps.tile.PumpTile;
+import com.refinedmods.rangedpumps.RangedPumps;
+import com.refinedmods.rangedpumps.tile.PumpState;
+import com.refinedmods.rangedpumps.tile.PumpTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;

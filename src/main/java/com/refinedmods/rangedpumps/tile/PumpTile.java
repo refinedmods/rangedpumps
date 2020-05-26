@@ -1,6 +1,6 @@
-package com.raoulvdberge.rangedpumps.tile;
+package com.refinedmods.rangedpumps.tile;
 
-import com.raoulvdberge.rangedpumps.RangedPumps;
+import com.refinedmods.rangedpumps.RangedPumps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

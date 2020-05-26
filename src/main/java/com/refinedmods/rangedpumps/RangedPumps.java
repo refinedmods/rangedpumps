@@ -1,8 +1,8 @@
-package com.raoulvdberge.rangedpumps;
+package com.refinedmods.rangedpumps;
 
-import com.raoulvdberge.rangedpumps.config.ServerConfig;
-import com.raoulvdberge.rangedpumps.item.group.MainItemGroup;
-import com.raoulvdberge.rangedpumps.setup.CommonSetup;
+import com.refinedmods.rangedpumps.config.ServerConfig;
+import com.refinedmods.rangedpumps.item.group.MainItemGroup;
+import com.refinedmods.rangedpumps.setup.CommonSetup;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;

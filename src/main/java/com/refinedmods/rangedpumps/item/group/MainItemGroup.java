@@ -1,7 +1,7 @@
-package com.raoulvdberge.rangedpumps.item.group;
+package com.refinedmods.rangedpumps.item.group;
 
-import com.raoulvdberge.rangedpumps.RangedPumps;
-import com.raoulvdberge.rangedpumps.block.PumpBlock;
+import com.refinedmods.rangedpumps.RangedPumps;
+import com.refinedmods.rangedpumps.block.PumpBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 

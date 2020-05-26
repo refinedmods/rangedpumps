@@ -1,8 +1,8 @@
-package com.raoulvdberge.rangedpumps.setup;
+package com.refinedmods.rangedpumps.setup;
 
-import com.raoulvdberge.rangedpumps.RangedPumps;
-import com.raoulvdberge.rangedpumps.block.PumpBlock;
-import com.raoulvdberge.rangedpumps.tile.PumpTile;
+import com.refinedmods.rangedpumps.RangedPumps;
+import com.refinedmods.rangedpumps.block.PumpBlock;
+import com.refinedmods.rangedpumps.tile.PumpTile;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
