@@ -1,5 +1,8 @@
 # Ranged Pumps Changelog
 
+### 0.8
+- Port to Minecraft 1.16 (raoulvdberge)
+
 ### 0.7.1
 - Port to Minecraft 1.15.2 (raoulvdberge)
 

@@ -61,13 +61,13 @@ public class PumpBlock extends Block {
                 ITextComponent message = PumpState.getMessage(pump);
 
                 if (message != null) {
-                    player.sendMessage(message);
+                    player.sendMessage(message, player.getUniqueID());
                 }
 
                 if (pump.getTank().getFluidAmount() == 0) {
-                    player.sendMessage(new TranslationTextComponent("block." + RangedPumps.ID + ".pump.state_empty", energy.getEnergyStored(), energy.getMaxEnergyStored()));
+                    player.sendMessage(new TranslationTextComponent("block." + RangedPumps.ID + ".pump.state_empty", energy.getEnergyStored(), energy.getMaxEnergyStored()), player.getUniqueID());
                 } else {
-                    player.sendMessage(new TranslationTextComponent("block." + RangedPumps.ID + ".pump.state", pump.getTank().getFluidAmount(), pump.getTank().getFluid().getDisplayName(), energy.getEnergyStored(), energy.getMaxEnergyStored()));
+                    player.sendMessage(new TranslationTextComponent("block." + RangedPumps.ID + ".pump.state", pump.getTank().getFluidAmount(), pump.getTank().getFluid().getDisplayName(), energy.getEnergyStored(), energy.getMaxEnergyStored()), player.getUniqueID());
                 }
             }
         }

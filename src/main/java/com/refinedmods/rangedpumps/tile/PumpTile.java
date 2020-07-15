@@ -263,8 +263,8 @@ public class PumpTile extends TileEntity implements ITickableTileEntity {
     }
 
     @Override
-    public void read(CompoundNBT tag) {
-        super.read(tag);
+    public void read(BlockState blockState, CompoundNBT tag) {
+        super.read(blockState, tag);
 
         if (tag.contains("Energy")) {
             energy.receiveEnergy(tag.getInt("Energy"), false);
