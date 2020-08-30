@@ -1,6 +1,7 @@
 modLoader="javafml"
-loaderVersion="[32,)"
+loaderVersion="[33,)"
 issueTrackerURL="https://github.com/refinedmods/rangedpumps"
+license="MIT"
 [[mods]]
 modId="rangedpumps"
 version="${version}"
