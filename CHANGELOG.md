@@ -2,6 +2,7 @@
 
 ### 0.8.1
 - Added Simplified Chinese translation (a5161655)
+- Added Hungarian translation (excodex)
 
 ### 0.8
 - Port to Minecraft 1.16 (raoulvdberge)
