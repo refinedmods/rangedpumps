@@ -1,5 +1,8 @@
 # Ranged Pumps Changelog
 
+### 0.8.2
+- Port to Minecraft 1.16.3 (raoulvdberge)
+
 ### 0.8.1
 - Port to Minecraft 1.16.2 (raoulvdberge)
 - Added Simplified Chinese translation (a5161655)

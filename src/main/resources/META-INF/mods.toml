@@ -1,14 +1,14 @@
-modLoader="javafml"
-loaderVersion="[33,)"
-issueTrackerURL="https://github.com/refinedmods/rangedpumps"
-license="MIT"
+modLoader = "javafml"
+loaderVersion = "[34,)"
+issueTrackerURL = "https://github.com/refinedmods/rangedpumps"
+license = "MIT"
 [[mods]]
-modId="rangedpumps"
-version="${version}"
-displayName="Ranged Pumps"
-updateJSONURL="https://refinedmods.com/ranged-pumps/update.json"
-displayURL="https://refinedmods.com/ranged-pumps"
-authors="Refined Mods"
-description='''
+modId = "rangedpumps"
+version = "${version}"
+displayName = "Ranged Pumps"
+updateJSONURL = "https://refinedmods.com/ranged-pumps/update.json"
+displayURL = "https://refinedmods.com/ranged-pumps"
+authors = "Refined Mods"
+description = '''
 Ranged Pumps is a simple mod that adds a pump that pumps liquids in a range
 '''
