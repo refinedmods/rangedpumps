@@ -1,0 +1,11 @@
+{
+  "itemGroup.rangedpumps": "Pompe a distanza",
+  "block.rangedpumps.pump": "Pompa",
+  "block.rangedpumps.pump.state": "%d mB di %s - %d / %d FE",
+  "block.rangedpumps.pump.state_empty": "Vuoto - %d / %d FE",
+  "block.rangedpumps.pump.state.energy": "Energia Insufficiente.",
+  "block.rangedpumps.pump.state.redstone": "Non funziona a causa del segnale di redstone.",
+  "block.rangedpumps.pump.state.working": "Scansione in %d, %d, %d (intervallo: %d).",
+  "block.rangedpumps.pump.state.full": "Il serbatoio interno è pieno.",
+  "block.rangedpumps.pump.state.done": "Fatto."
+}

@@ -1,3 +1,3 @@
-# Ranged Pumps [![Build Status](https://ci.refinedmods.com/buildStatus/icon?job=rangedpumps-mc1.16)](https://ci.refinedmods.com/job/rangedpumps-mc1.16/) [![CurseForge](http://cf.way2muchnoise.eu/full_247496_downloads.svg)](http://minecraft.curseforge.com/projects/ranged-pumps)
+# Ranged Pumps [![Build Status](https://github.com/refinedmods/rangedpumps/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/refinedmods/rangedpumps/actions/workflows/build.yml) [![Downloads on CurseForge](http://cf.way2muchnoise.eu/full_247496_downloads.svg)](http://minecraft.curseforge.com/projects/ranged-pumps) [![Discord](https://img.shields.io/discord/342942776494653441)](https://discordapp.com/invite/VYzsydb) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 
 Ranged Pumps is a simple mod that adds a pump that pumps liquids in a range.

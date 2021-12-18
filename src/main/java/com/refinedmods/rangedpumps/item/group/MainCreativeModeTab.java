@@ -2,16 +2,16 @@ package com.refinedmods.rangedpumps.item.group;
 
 import com.refinedmods.rangedpumps.RangedPumps;
 import com.refinedmods.rangedpumps.block.PumpBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-public class MainItemGroup extends ItemGroup {
-    public MainItemGroup() {
+public class MainCreativeModeTab extends CreativeModeTab {
+    public MainCreativeModeTab() {
         super(RangedPumps.ID);
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(PumpBlock.BLOCK);
     }
 }
