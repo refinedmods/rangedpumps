@@ -21,7 +21,7 @@ public final class CommonSetup {
 
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> e) {
-        e.getRegistry().register(new BlockItem(PumpBlock.BLOCK, new Item.Properties().tab(RangedPumps.MAIN_TAB)).setRegistryName(RangedPumps.ID, "pump"));
+        e.getRegistry().register(new BlockItem(PumpBlock.BLOCK, new Item.Properties().tab(RangedPumps.CREATIVE_MODE_TAB)).setRegistryName(RangedPumps.ID, "pump"));
     }
 
     @SubscribeEvent

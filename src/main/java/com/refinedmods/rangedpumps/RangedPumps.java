@@ -15,7 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(RangedPumps.ID)
 public final class RangedPumps {
     public static final String ID = "rangedpumps";
-    public static final CreativeModeTab MAIN_TAB = new MainCreativeModeTab();
+    public static final CreativeModeTab CREATIVE_MODE_TAB = new MainCreativeModeTab();
     public static final ServerConfig SERVER_CONFIG = new ServerConfig();
 
     public RangedPumps() {
