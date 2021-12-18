@@ -1,12 +1,11 @@
 modLoader = "javafml"
-loaderVersion = "[34,)"
+loaderVersion = "[39,)"
 issueTrackerURL = "https://github.com/refinedmods/rangedpumps"
 license = "MIT"
 [[mods]]
 modId = "rangedpumps"
 version = "${version}"
 displayName = "Ranged Pumps"
-updateJSONURL = "https://refinedmods.com/ranged-pumps/update.json"
 displayURL = "https://refinedmods.com/ranged-pumps"
 authors = "Refined Mods"
 description = '''

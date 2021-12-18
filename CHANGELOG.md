@@ -9,6 +9,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Port to Minecraft 1.18.1.
 - Added Portuguese translation by [@flagar0](https://github.com/flagar0).
 - Added Italian translation by [@maicol07](https://github.com/maicol07).
 

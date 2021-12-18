@@ -8,22 +8,30 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.8.3'
-def env = System.getenv()
-if (env.BUILD_NUMBER) {
-    version = version + "+" + "${env.BUILD_NUMBER}"
-}
 group = 'com.refinedmods'
 archivesBaseName = 'rangedpumps'
+version = '0.9.0'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+if (System.getenv('GITHUB_SHA') != null) {
+    version += '+' + System.getenv('GITHUB_SHA').substring(0, 7)
+}
+
+if (System.getenv('RELEASE') != null) {
+    version = System.getenv('RELEASE').substring(1) // remove 'v'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'official', version: '1.16.5'
+    mappings channel: 'official', version: '1.18.1'
 
     runs {
         client {
@@ -71,7 +79,7 @@ processResources {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.3-34.1.0'
+    minecraft 'net.minecraftforge:forge:1.18.1-39.0.0'
 }
 
 jar {
@@ -88,4 +96,39 @@ jar {
     }
 }
 
+if (System.getenv("CURSEFORGE_TOKEN") != null) {
+    curseforge {
+        apiKey = System.getenv("CURSEFORGE_TOKEN")
+        project {
+            id = '247496'
+            changelog = System.getenv("CHANGELOG")
+            changelogType = 'markdown'
+            releaseType = project.version.toString().contains('beta') ? 'beta' : (project.version.toString().contains('alpha') ? 'alpha' : 'release')
+            addGameVersion "1.18.1"
+            mainArtifact(jar) {
+                displayName = "v$project.version"
+            }
+        }
+    }
+}
+
 jar.finalizedBy('reobfJar')
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/refinedmods/rangedpumps")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
