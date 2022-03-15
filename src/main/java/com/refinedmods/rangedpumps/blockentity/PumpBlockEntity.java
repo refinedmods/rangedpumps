@@ -133,7 +133,7 @@ public class PumpBlockEntity extends BlockEntity {
         }
 
         if ((RangedPumps.SERVER_CONFIG.getSpeed() == 0 || (ticks % RangedPumps.SERVER_CONFIG.getSpeed() == 0)) && getState() == PumpState.WORKING) {
-            if (currentPos == null || currentPos.getY() == 0) {
+            if (currentPos == null || currentPos.getY() == -64) {
                 if (surfaces.isEmpty()) {
                     range++;
 
