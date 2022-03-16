@@ -18,7 +18,7 @@ public enum PumpState {
             case REDSTONE:
                 return new TranslatableComponent("block.rangedpumps.pump.state.redstone");
             case WORKING:
-                return new TranslatableComponent("block.rangedpumps.pump.state.working", pump.getCurrentPosition().getX(), pump.getCurrentPosition().getY(), pump.getCurrentPosition().getZ(), pump.getRange() + " of " + RangedPumps.SERVER_CONFIG.getRange());
+                return new TranslatableComponent("block.rangedpumps.pump.state.working", pump.getCurrentPosition().getX(), pump.getCurrentPosition().getY(), pump.getCurrentPosition().getZ(), pump.getRange() ,RangedPumps.SERVER_CONFIG.getRange());
             case FULL:
                 return new TranslatableComponent("block.rangedpumps.pump.state.full");
             case DONE:
