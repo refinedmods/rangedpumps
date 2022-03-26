@@ -5,7 +5,7 @@
   "block.rangedpumps.pump.state_empty": "Vide - %d / %d FE",
   "block.rangedpumps.pump.state.energy": "Énergie insuffisante.",
   "block.rangedpumps.pump.state.redstone": "Ne fonctionne pas à cause du signal redstone.",
-  "block.rangedpumps.pump.state.working": "Balayage à %d, %d, %d (portée: %d).",
+  "block.rangedpumps.pump.state.working": "Balayage à %d, %d, %d (portée: %d / %d).",
   "block.rangedpumps.pump.state.full": "Le réservoir interne est plein.",
   "block.rangedpumps.pump.state.done": "Terminé."
 }

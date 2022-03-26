@@ -7,6 +7,15 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Korean translation by [@mindy15963](https://github.com/mindy15963).
+- French translation by [@dracnis](https://github.com/dracnis).
+
+### Fixed
+
+- Fixed pump scanning past minimum Y level by [@Arayn](https://github.com/Arayn).
+
 ## [0.9.0] - 2021-12-18
 
 ### Added
