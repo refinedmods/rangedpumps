@@ -18,7 +18,7 @@ apply plugin: 'maven-publish'
 
 group = 'com.refinedmods'
 archivesBaseName = 'rangedpumps'
-version = '0.9.1'
+version = '0.9.2'
 
 if (System.getenv('GITHUB_SHA') != null) {
     version += '+' + System.getenv('GITHUB_SHA').substring(0, 7)
@@ -31,7 +31,7 @@ if (System.getenv('RELEASE') != null) {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: '1.18.2'
 
     runs {
         client {
@@ -79,7 +79,7 @@ processResources {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.0'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.32'
 }
 
 jar {
@@ -104,7 +104,7 @@ if (System.getenv("CURSEFORGE_TOKEN") != null) {
             changelog = System.getenv("CHANGELOG")
             changelogType = 'markdown'
             releaseType = project.version.toString().contains('beta') ? 'beta' : (project.version.toString().contains('alpha') ? 'alpha' : 'release')
-            addGameVersion "1.18.1"
+            addGameVersion "1.18.2"
             mainArtifact(jar) {
                 displayName = "v$project.version"
             }
@@ -122,6 +122,14 @@ publishing {
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+        maven {
+            name = "CreeperHost"
+            url = uri("https://maven.creeperhost.net/release")
+            credentials {
+                username = System.getenv("CREEPERHOST_MAVEN_USERNAME")
+                password = System.getenv("CREEPERHOST_MAVEN_TOKEN")
             }
         }
     }
