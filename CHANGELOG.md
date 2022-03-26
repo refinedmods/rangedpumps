@@ -14,7 +14,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Fixed pump scanning past minimum Y level by [@Arayn](https://github.com/Arayn).
+- Fixed pump scanning past minimum Y level.
+- Fixed pump not using minimum Y level from dimension by [@Arayn](https://github.com/Arayn).
 
 ## [0.9.0] - 2021-12-18
 

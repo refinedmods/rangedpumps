@@ -91,9 +91,8 @@ public class PumpBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onLoad() {
-        super.onLoad();
-
+    public void clearRemoved() {
+        super.clearRemoved();
         if (surfaces.isEmpty()) {
             rebuildSurfaces();
         }
