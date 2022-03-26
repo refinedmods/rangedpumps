@@ -1,0 +1,11 @@
+{
+  "itemGroup.rangedpumps": "랜지드 펌프",
+  "block.rangedpumps.pump": "펌프",
+  "block.rangedpumps.pump.state": "%s의 %d mB - %d / %d FE",
+  "block.rangedpumps.pump.state_empty": "비어 있음 - %d / %d FE",
+  "block.rangedpumps.pump.state.energy": "에너지가 부족합니다.",
+  "block.rangedpumps.pump.state.redstone": "레드스톤 신호로 인해 작동하지 않습니다.",
+  "block.rangedpumps.pump.state.working": "%d, %d, %d(범위: %d / %d)에서 검색 중입니다.",
+  "block.rangedpumps.pump.state.full": "내부 탱크가 가득 찼습니다.",
+  "block.rangedpumps.pump.state.done": "끝났습니다."
+}

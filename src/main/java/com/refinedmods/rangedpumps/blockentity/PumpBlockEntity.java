@@ -91,9 +91,8 @@ public class PumpBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onLoad() {
-        super.onLoad();
-
+    public void clearRemoved() {
+        super.clearRemoved();
         if (surfaces.isEmpty()) {
             rebuildSurfaces();
         }
@@ -133,7 +132,7 @@ public class PumpBlockEntity extends BlockEntity {
         }
 
         if ((RangedPumps.SERVER_CONFIG.getSpeed() == 0 || (ticks % RangedPumps.SERVER_CONFIG.getSpeed() == 0)) && getState() == PumpState.WORKING) {
-            if (currentPos == null || currentPos.getY() == 0) {
+            if (currentPos == null || currentPos.getY() == level.dimensionType().minY()) {
                 if (surfaces.isEmpty()) {
                     range++;
 

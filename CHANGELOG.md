@@ -9,6 +9,18 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Korean translation by [@mindy15963](https://github.com/mindy15963).
+- French translation by [@dracnis](https://github.com/dracnis).
+
+### Fixed
+
+- Fixed pump scanning past minimum Y level.
+- Fixed pump not using minimum Y level from dimension by [@Arayn](https://github.com/Arayn).
+
+## [0.9.0] - 2021-12-18
+
+### Added
+
 - Port to Minecraft 1.18.1.
 - Added Portuguese translation by [@flagar0](https://github.com/flagar0).
 - Added Italian translation by [@maicol07](https://github.com/maicol07).
