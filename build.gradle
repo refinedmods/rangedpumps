@@ -18,7 +18,7 @@ apply plugin: 'maven-publish'
 
 group = 'com.refinedmods'
 archivesBaseName = 'rangedpumps'
-version = '1.0.0'
+version = '1.0.1'
 
 if (System.getenv('GITHUB_SHA') != null) {
     version += '+' + System.getenv('GITHUB_SHA').substring(0, 7)
