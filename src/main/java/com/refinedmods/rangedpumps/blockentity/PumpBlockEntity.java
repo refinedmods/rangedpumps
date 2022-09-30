@@ -12,22 +12,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.IFluidBlock;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,9 +33,6 @@ import java.util.List;
 import java.util.Queue;
 
 public class PumpBlockEntity extends BlockEntity {
-    @ObjectHolder(RangedPumps.ID + ":pump")
-    public static final BlockEntityType<PumpBlockEntity> TYPE = null;
-
     private PumpTank tank = new PumpTank();
     private IEnergyStorage energy = new EnergyStorage(RangedPumps.SERVER_CONFIG.getEnergyCapacity());
 
@@ -54,7 +48,7 @@ public class PumpBlockEntity extends BlockEntity {
     private Block blockToReplaceLiquidsWith;
 
     public PumpBlockEntity(BlockPos pos, BlockState state) {
-        super(TYPE, pos, state);
+        super(RangedPumps.PUMP_BLOCK_ENTITY_TYPE.get(), pos, state);
     }
 
     private void rebuildSurfaces() {
@@ -111,7 +105,7 @@ public class PumpBlockEntity extends BlockEntity {
                 BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(facing));
 
                 if (blockEntity != null) {
-                    IFluidHandler handler = blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite()).orElse(null);
+                    IFluidHandler handler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, facing.getOpposite()).orElse(null);
 
                     if (handler != null) {
                         fluidHandlers.add(handler);
@@ -192,7 +186,7 @@ public class PumpBlockEntity extends BlockEntity {
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
                 }
 
-                return new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME);
+                return new FluidStack(fluid, FluidType.BUCKET_VOLUME);
             }
         } else if (frontBlock instanceof IFluidBlock) {
             IFluidBlock fluidBlock = (IFluidBlock) frontBlock;
@@ -220,7 +214,7 @@ public class PumpBlockEntity extends BlockEntity {
             return PumpState.REDSTONE;
         } else if (energy.getEnergyStored() == 0) {
             return PumpState.ENERGY;
-        } else if (tank.getFluidAmount() > tank.getCapacity() - FluidAttributes.BUCKET_VOLUME) {
+        } else if (tank.getFluidAmount() > tank.getCapacity() - FluidType.BUCKET_VOLUME) {
             return PumpState.FULL;
         } else {
             return PumpState.WORKING;
@@ -282,11 +276,11 @@ public class PumpBlockEntity extends BlockEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        if (cap == CapabilityEnergy.ENERGY) {
+        if (cap == ForgeCapabilities.ENERGY) {
             return energyProxyCap.cast();
         }
 
-        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.FLUID_HANDLER) {
             return fluidHandlerCap.cast();
         }
 
