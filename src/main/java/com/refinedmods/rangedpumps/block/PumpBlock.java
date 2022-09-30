@@ -1,11 +1,10 @@
 package com.refinedmods.rangedpumps.block;
 
 import com.refinedmods.rangedpumps.RangedPumps;
-import com.refinedmods.rangedpumps.blockentity.PumpState;
 import com.refinedmods.rangedpumps.blockentity.PumpBlockEntity;
+import com.refinedmods.rangedpumps.blockentity.PumpState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -24,15 +23,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.registries.ObjectHolder;
 
 public class PumpBlock extends Block implements EntityBlock {
-    @ObjectHolder(RangedPumps.ID + ":pump")
-    public static final PumpBlock BLOCK = null;
-
     public PumpBlock() {
         super(Block.Properties.of(Material.STONE).strength(1.9F).sound(SoundType.STONE));
-
-        setRegistryName(RangedPumps.ID, "pump");
     }
-
 
     @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
@@ -48,13 +41,13 @@ public class PumpBlock extends Block implements EntityBlock {
                 Component message = PumpState.getMessage(pump);
 
                 if (message != null) {
-                    player.sendMessage(message, player.getUUID());
+                    player.sendSystemMessage(message);
                 }
 
                 if (pump.getTank().getFluidAmount() == 0) {
-                    player.sendMessage(new TranslatableComponent("block." + RangedPumps.ID + ".pump.state_empty", energy.getEnergyStored(), energy.getMaxEnergyStored()), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state_empty", energy.getEnergyStored(), energy.getMaxEnergyStored()));
                 } else {
-                    player.sendMessage(new TranslatableComponent("block." + RangedPumps.ID + ".pump.state", pump.getTank().getFluidAmount(), pump.getTank().getFluid().getDisplayName(), energy.getEnergyStored(), energy.getMaxEnergyStored()), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state", pump.getTank().getFluidAmount(), pump.getTank().getFluid().getDisplayName(), energy.getEnergyStored(), energy.getMaxEnergyStored()));
                 }
             }
         }
