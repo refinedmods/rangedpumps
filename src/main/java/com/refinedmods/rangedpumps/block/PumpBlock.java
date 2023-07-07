@@ -16,15 +16,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.registries.ObjectHolder;
 
 public class PumpBlock extends Block implements EntityBlock {
     public PumpBlock() {
-        super(Block.Properties.of(Material.STONE).strength(1.9F).sound(SoundType.STONE));
+        super(Block.Properties.of().strength(1.9F).sound(SoundType.STONE));
     }
 
     @SuppressWarnings("deprecation")
@@ -33,7 +31,7 @@ public class PumpBlock extends Block implements EntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(pos);
 
             if (blockEntity instanceof PumpBlockEntity pump) {
-                IEnergyStorage energy = pump.getCapability(CapabilityEnergy.ENERGY).orElse(null);
+                IEnergyStorage energy = pump.getCapability(ForgeCapabilities.ENERGY).orElse(null);
                 if (energy == null) {
                     return InteractionResult.SUCCESS;
                 }
