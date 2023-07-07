@@ -28,7 +28,7 @@ Right click on the pump to know what it is doing and to know if it is running.
 
 ## Scanning and range
 
-![Scanning behavior of a ranged pump](/assets/ranged-pumps/scanning.png)
+![Scanning behavior of a ranged pump](scanning.png)
 
 It'll start pumping liquids in rectangular spiral shape 1 block under the pump.
 
