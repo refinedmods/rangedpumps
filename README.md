@@ -14,6 +14,7 @@ Ranged Pumps is a simple mod that adds a pump that pumps liquids in a range.
 - [CurseForge](https://curseforge.com/minecraft/mc-mods/ranged-pumps)
 - [Modrinth](https://modrinth.com/mod/ranged-pumps)
 - [Wiki](https://refinedmods.com/ranged-pumps/)
+- [Javadoc](https://refinedmods.com/javadoc/rangedpumps)
 - [Discord](https://discordapp.com/invite/VYzsydb)
 - [Twitter](https://twitter.com/refinedmods)
 - [Mastodon](https://anvil.social/@refinedmods)
