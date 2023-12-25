@@ -1,0 +1,14 @@
+[
+  {
+    "ref": "index.adoc"
+  },
+  {
+    "ref": "pump-110.adoc",
+    "title": "Pump (Minecraft 1.10.2)"
+  },
+  {
+    "title": "What's new",
+    "ref": "whats-new.adoc",
+    "icon": "bi-lightbulb-fill"
+  }
+]
