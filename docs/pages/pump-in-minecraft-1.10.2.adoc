@@ -1,11 +1,8 @@
 = Pump
 :icon: pump.png
 
-[.alert.alert-warning]
-****
 This documentation page refers to the **Minecraft 1.10.2** version of Ranged Pumps.
 Consult the xref:index.adoc[latest version of the documentation].
-****
 
 The {doctitle} is the only block that is added by Ranged Pumps.
 It pumps liquids in a range.
