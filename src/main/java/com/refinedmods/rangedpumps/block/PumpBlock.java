@@ -3,7 +3,9 @@ package com.refinedmods.rangedpumps.block;
 import com.refinedmods.rangedpumps.RangedPumps;
 import com.refinedmods.rangedpumps.blockentity.PumpBlockEntity;
 import com.refinedmods.rangedpumps.blockentity.PumpState;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,8 +19,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
 public class PumpBlock extends Block implements EntityBlock {
     public PumpBlock() {
@@ -26,12 +28,17 @@ public class PumpBlock extends Block implements EntityBlock {
     }
 
     @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
+                                 BlockHitResult hit) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
 
             if (blockEntity instanceof PumpBlockEntity pump) {
-                IEnergyStorage energy = pump.getCapability(ForgeCapabilities.ENERGY).orElse(null);
+                IEnergyStorage energy = level.getCapability(
+                    Capabilities.EnergyStorage.BLOCK,
+                    pos,
+                    Direction.NORTH
+                );
                 if (energy == null) {
                     return InteractionResult.SUCCESS;
                 }
@@ -43,9 +50,12 @@ public class PumpBlock extends Block implements EntityBlock {
                 }
 
                 if (pump.getTank().getFluidAmount() == 0) {
-                    player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state_empty", energy.getEnergyStored(), energy.getMaxEnergyStored()));
+                    player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state_empty",
+                        energy.getEnergyStored(), energy.getMaxEnergyStored()));
                 } else {
-                    player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state", pump.getTank().getFluidAmount(), pump.getTank().getFluid().getDisplayName(), energy.getEnergyStored(), energy.getMaxEnergyStored()));
+                    player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state",
+                        pump.getTank().getFluidAmount(), pump.getTank().getFluid().getDisplayName(),
+                        energy.getEnergyStored(), energy.getMaxEnergyStored()));
                 }
             }
         }
@@ -59,7 +69,9 @@ public class PumpBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return !level.isClientSide ? (levelTicker, pos, stateTicker, blockEntity) -> ((PumpBlockEntity) blockEntity).tick() : null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
+                                                                  BlockEntityType<T> type) {
+        return !level.isClientSide ?
+            (levelTicker, pos, stateTicker, blockEntity) -> ((PumpBlockEntity) blockEntity).tick() : null;
     }
 }
