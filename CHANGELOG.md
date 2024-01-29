@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+-   Ported to Minecraft 1.20.4.
+
 ## [1.1.0] - 2023-07-07
 
 ### Changed
@@ -65,7 +69,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Port to Minecraft 1.16.
 
-## [0.7.1] - 2020-01-30
+## [0.11.3] - 2020-01-30
 
 ### Added
 
@@ -156,9 +160,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [0.8.1]: https://github.com/refinedmods/rangedpumps/compare/v0.8.0...v0.8.1
 
-[0.8.0]: https://github.com/refinedmods/rangedpumps/compare/v0.7.1...v0.8.0
+[0.8.0]: https://github.com/refinedmods/rangedpumps/compare/v0.11.3...v0.8.0
 
-[0.7.1]: https://github.com/refinedmods/rangedpumps/compare/v0.7.0...v0.7.1
+[0.11.3]: https://github.com/refinedmods/rangedpumps/compare/v0.7.0...v0.11.3
 
 [0.7.0]: https://github.com/refinedmods/rangedpumps/compare/v0.6.1...v0.7.0
 
