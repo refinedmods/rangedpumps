@@ -1,4 +1,4 @@
-apply from: "https://raw.githubusercontent.com/refinedmods/refinedarchitect/v0.11.3/helper.gradle"
+apply from: "https://raw.githubusercontent.com/refinedmods/refinedarchitect/v0.11.4/helper.gradle"
 
 group = 'com.refinedmods'
 
