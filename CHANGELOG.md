@@ -7,6 +7,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-01-29
+
+### Changed
+
+-   Ported to Minecraft 1.20.4.
+
 ## [1.1.0] - 2023-07-07
 
 ### Changed
@@ -65,7 +71,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Port to Minecraft 1.16.
 
-## [0.7.1] - 2020-01-30
+## [0.11.3] - 2020-01-30
 
 ### Added
 
@@ -140,7 +146,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Initial release for Minecraft 1.10.2.
 
-[Unreleased]: https://github.com/refinedmods/rangedpumps/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/refinedmods/rangedpumps/compare/v1.2.0...HEAD
+
+[1.2.0]: https://github.com/refinedmods/rangedpumps/compare/v1.1.0...v1.2.0
 
 [1.1.0]: https://github.com/refinedmods/rangedpumps/compare/v1.0.0...v1.1.0
 
@@ -156,9 +164,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [0.8.1]: https://github.com/refinedmods/rangedpumps/compare/v0.8.0...v0.8.1
 
-[0.8.0]: https://github.com/refinedmods/rangedpumps/compare/v0.7.1...v0.8.0
+[0.8.0]: https://github.com/refinedmods/rangedpumps/compare/v0.11.3...v0.8.0
 
-[0.7.1]: https://github.com/refinedmods/rangedpumps/compare/v0.7.0...v0.7.1
+[0.11.3]: https://github.com/refinedmods/rangedpumps/compare/v0.7.0...v0.11.3
 
 [0.7.0]: https://github.com/refinedmods/rangedpumps/compare/v0.6.1...v0.7.0
 

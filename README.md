@@ -1,4 +1,4 @@
-# Ranged Pumps [![Build Status](https://github.com/refinedmods/rangedpumps/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/refinedmods/rangedpumps/actions/workflows/build.yml) [![Downloads on CurseForge](http://cf.way2muchnoise.eu/full_247496_downloads.svg)](http://minecraft.curseforge.com/projects/ranged-pumps) [![Discord](https://img.shields.io/discord/342942776494653441)](https://discordapp.com/invite/VYzsydb) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
+# Ranged Pumps [![Build Status](https://github.com/refinedmods/rangedpumps/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/refinedmods/rangedpumps/actions/workflows/build.yml) [![Downloads on CurseForge](http://cf.way2muchnoise.eu/full_247496_downloads.svg)](http://minecraft.curseforge.com/projects/ranged-pumps) [![Downloads on Modrinth](https://img.shields.io/modrinth/dt/ranged-pumps?logo=modrinth)](https://modrinth.com/mod/ranged-pumps) [![Discord](https://img.shields.io/discord/342942776494653441)](https://discordapp.com/invite/VYzsydb) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 
 ## About
 
@@ -14,6 +14,7 @@ Ranged Pumps is a simple mod that adds a pump that pumps liquids in a range.
 - [CurseForge](https://curseforge.com/minecraft/mc-mods/ranged-pumps)
 - [Modrinth](https://modrinth.com/mod/ranged-pumps)
 - [Wiki](https://refinedmods.com/ranged-pumps/)
+- [Javadoc](https://refinedmods.com/javadoc/rangedpumps)
 - [Discord](https://discordapp.com/invite/VYzsydb)
 - [Twitter](https://twitter.com/refinedmods)
 - [Mastodon](https://anvil.social/@refinedmods)

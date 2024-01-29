@@ -1,8 +1,16 @@
 package com.refinedmods.rangedpumps.blockentity;
 
 import com.refinedmods.rangedpumps.RangedPumps;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.LongTag;
@@ -14,30 +22,18 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.IFluidBlock;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.energy.EnergyStorage;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.IFluidBlock;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 public class PumpBlockEntity extends BlockEntity {
     private PumpTank tank = new PumpTank();
     private IEnergyStorage energy = new EnergyStorage(RangedPumps.SERVER_CONFIG.getEnergyCapacity());
-
-    private final LazyOptional<IEnergyStorage> energyProxyCap = LazyOptional.of(() -> energy);
-    private final LazyOptional<IFluidHandler> fluidHandlerCap = LazyOptional.of(() -> tank);
 
     private int ticks;
 
@@ -93,6 +89,10 @@ public class PumpBlockEntity extends BlockEntity {
     }
 
     public void tick() {
+        if (level == null) {
+            return;
+        }
+
         if (!RangedPumps.SERVER_CONFIG.getUseEnergy()) {
             energy.receiveEnergy(energy.getMaxEnergyStored(), false);
         }
@@ -102,14 +102,13 @@ public class PumpBlockEntity extends BlockEntity {
             List<IFluidHandler> fluidHandlers = new LinkedList<>();
 
             for (Direction facing : Direction.values()) {
-                BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(facing));
-
-                if (blockEntity != null) {
-                    IFluidHandler handler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, facing.getOpposite()).orElse(null);
-
-                    if (handler != null) {
-                        fluidHandlers.add(handler);
-                    }
+                IFluidHandler handler = level.getCapability(
+                    Capabilities.FluidHandler.BLOCK,
+                    worldPosition.relative(facing),
+                    facing.getOpposite()
+                );
+                if (handler != null) {
+                    fluidHandlers.add(handler);
                 }
             }
 
@@ -120,12 +119,14 @@ public class PumpBlockEntity extends BlockEntity {
                     FluidStack toFill = tank.getFluid().copy();
                     toFill.setAmount(transfer);
 
-                    tank.drain(fluidHandler.fill(toFill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                    tank.drain(fluidHandler.fill(toFill, IFluidHandler.FluidAction.EXECUTE),
+                        IFluidHandler.FluidAction.EXECUTE);
                 }
             }
         }
 
-        if ((RangedPumps.SERVER_CONFIG.getSpeed() == 0 || (ticks % RangedPumps.SERVER_CONFIG.getSpeed() == 0)) && getState() == PumpState.WORKING) {
+        if ((RangedPumps.SERVER_CONFIG.getSpeed() == 0 || (ticks % RangedPumps.SERVER_CONFIG.getSpeed() == 0)) &&
+            getState() == PumpState.WORKING) {
             if (currentPos == null || currentPos.getY() == level.dimensionType().minY()) {
                 if (surfaces.isEmpty()) {
                     range++;
@@ -146,7 +147,8 @@ public class PumpBlockEntity extends BlockEntity {
 
             FluidStack drained = drainAt(currentPos, IFluidHandler.FluidAction.SIMULATE);
 
-            if (!drained.isEmpty() && tank.fillInternal(drained, IFluidHandler.FluidAction.SIMULATE) == drained.getAmount()) {
+            if (!drained.isEmpty() &&
+                tank.fillInternal(drained, IFluidHandler.FluidAction.SIMULATE) == drained.getAmount()) {
                 drained = drainAt(currentPos, IFluidHandler.FluidAction.EXECUTE);
 
                 if (!drained.isEmpty()) {
@@ -154,7 +156,9 @@ public class PumpBlockEntity extends BlockEntity {
 
                     if (RangedPumps.SERVER_CONFIG.getReplaceLiquidWithBlock()) {
                         if (blockToReplaceLiquidsWith == null) {
-                            blockToReplaceLiquidsWith = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(RangedPumps.SERVER_CONFIG.getBlockIdToReplaceLiquidsWith()));
+                            blockToReplaceLiquidsWith = BuiltInRegistries.BLOCK.get(
+                                new ResourceLocation(RangedPumps.SERVER_CONFIG.getBlockIdToReplaceLiquidsWith())
+                            );
                         }
 
                         if (blockToReplaceLiquidsWith != null) {
@@ -225,6 +229,10 @@ public class PumpBlockEntity extends BlockEntity {
         return tank;
     }
 
+    public IEnergyStorage getEnergy() {
+        return energy;
+    }
+
     @Override
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
@@ -271,20 +279,6 @@ public class PumpBlockEntity extends BlockEntity {
         }
 
         tank.readFromNBT(tag);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        if (cap == ForgeCapabilities.ENERGY) {
-            return energyProxyCap.cast();
-        }
-
-        if (cap == ForgeCapabilities.FLUID_HANDLER) {
-            return fluidHandlerCap.cast();
-        }
-
-        return super.getCapability(cap, direction);
     }
 
     private static class PumpTank extends FluidTank {
