@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+-   Korean translation updated by [@gisellevonbingen](https://github.com/gisellevonbingen).
+
 ## [1.2.0] - 2024-01-29
 
 ### Changed
