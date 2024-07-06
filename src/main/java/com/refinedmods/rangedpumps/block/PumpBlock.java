@@ -27,9 +27,12 @@ public class PumpBlock extends Block implements EntityBlock {
         super(Block.Properties.of().strength(1.9F).sound(SoundType.STONE));
     }
 
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
-                                 BlockHitResult hit) {
+    @Override
+    protected InteractionResult useWithoutItem(final BlockState state,
+                                               final Level level,
+                                               final BlockPos pos,
+                                               final Player player,
+                                               final BlockHitResult hitResult) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
 
@@ -54,7 +57,7 @@ public class PumpBlock extends Block implements EntityBlock {
                         energy.getEnergyStored(), energy.getMaxEnergyStored()));
                 } else {
                     player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state",
-                        pump.getTank().getFluidAmount(), pump.getTank().getFluid().getDisplayName(),
+                        pump.getTank().getFluidAmount(), pump.getTank().getFluid().getHoverName(),
                         energy.getEnergyStored(), energy.getMaxEnergyStored()));
                 }
             }

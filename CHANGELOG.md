@@ -9,6 +9,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+-   Ported to Minecraft 1.21.
 -   Korean translation updated by [@gisellevonbingen](https://github.com/gisellevonbingen).
 
 ## [1.2.0] - 2024-01-29
