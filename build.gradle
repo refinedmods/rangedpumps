@@ -1,8 +1,8 @@
-apply from: "https://raw.githubusercontent.com/refinedmods/refinedarchitect/v0.11.3/helper.gradle"
+apply from: "https://raw.githubusercontent.com/refinedmods/refinedarchitect/v0.15.3/helper.gradle"
 
 group = 'com.refinedmods'
 
-forgeProject("rangedpumps")
+neoForgeProject("rangedpumps")
 
 archivesBaseName = 'rangedpumps'
 

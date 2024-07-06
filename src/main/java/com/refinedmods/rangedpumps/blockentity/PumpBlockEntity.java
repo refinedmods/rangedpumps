@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -27,7 +28,6 @@ import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.IFluidBlock;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
@@ -157,7 +157,7 @@ public class PumpBlockEntity extends BlockEntity {
                     if (RangedPumps.SERVER_CONFIG.getReplaceLiquidWithBlock()) {
                         if (blockToReplaceLiquidsWith == null) {
                             blockToReplaceLiquidsWith = BuiltInRegistries.BLOCK.get(
-                                new ResourceLocation(RangedPumps.SERVER_CONFIG.getBlockIdToReplaceLiquidsWith())
+                                ResourceLocation.parse(RangedPumps.SERVER_CONFIG.getBlockIdToReplaceLiquidsWith())
                             );
                         }
 
@@ -181,22 +181,14 @@ public class PumpBlockEntity extends BlockEntity {
         BlockState frontBlockState = level.getBlockState(pos);
         Block frontBlock = frontBlockState.getBlock();
 
-        if (frontBlock instanceof LiquidBlock) {
-            // @Volatile: Logic from LiquidBlock#pickupFluid
+        if (frontBlock instanceof LiquidBlock liquidBlock) {
+            // @Volatile: Logic from LiquidBlock#pickupBlock
             if (frontBlockState.getValue(LiquidBlock.LEVEL) == 0) {
-                Fluid fluid = ((LiquidBlock) frontBlock).getFluid();
-
+                Fluid fluid = liquidBlock.fluid;
                 if (action == IFluidHandler.FluidAction.EXECUTE) {
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
                 }
-
                 return new FluidStack(fluid, FluidType.BUCKET_VOLUME);
-            }
-        } else if (frontBlock instanceof IFluidBlock) {
-            IFluidBlock fluidBlock = (IFluidBlock) frontBlock;
-
-            if (fluidBlock.canDrain(level, pos)) {
-                return fluidBlock.drain(level, pos, action);
             }
         }
 
@@ -214,7 +206,7 @@ public class PumpBlockEntity extends BlockEntity {
     PumpState getState() {
         if (range > RangedPumps.SERVER_CONFIG.getRange()) {
             return PumpState.DONE;
-        } else if (level.hasNeighborSignal(worldPosition)) {
+        } else if (level != null && level.hasNeighborSignal(worldPosition)) {
             return PumpState.REDSTONE;
         } else if (energy.getEnergyStored() == 0) {
             return PumpState.ENERGY;
@@ -234,8 +226,8 @@ public class PumpBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.saveAdditional(tag, provider);
 
         tag.putInt("Energy", energy.getEnergyStored());
 
@@ -251,12 +243,12 @@ public class PumpBlockEntity extends BlockEntity {
 
         tag.put("Surfaces", surfaces);
 
-        tank.writeToNBT(tag);
+        tank.writeToNBT(provider, tag);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
 
         if (tag.contains("Energy")) {
             energy.receiveEnergy(tag.getInt("Energy"), false);
@@ -278,7 +270,7 @@ public class PumpBlockEntity extends BlockEntity {
             }
         }
 
-        tank.readFromNBT(tag);
+        tank.readFromNBT(provider, tag);
     }
 
     private static class PumpTank extends FluidTank {
