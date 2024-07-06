@@ -3,7 +3,6 @@ package com.refinedmods.rangedpumps;
 import com.refinedmods.rangedpumps.block.PumpBlock;
 import com.refinedmods.rangedpumps.blockentity.PumpBlockEntity;
 import com.refinedmods.rangedpumps.config.ServerConfig;
-
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -15,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -40,9 +39,9 @@ public final class RangedPumps {
 
     public static final ServerConfig SERVER_CONFIG = new ServerConfig();
 
-    public RangedPumps(final IEventBus eventBus) {
+    public RangedPumps(final IEventBus eventBus, final ModContainer container) {
         ITEMS.register("pump", () -> new BlockItem(PUMP_BLOCK.get(), new Item.Properties()));
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.getSpec());
+        container.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.getSpec());
         BLOCKS.register(eventBus);
         ITEMS.register(eventBus);
         BLOCK_ENTITY_TYPES.register(eventBus);
@@ -65,7 +64,7 @@ public final class RangedPumps {
 
     public static void onRegister(RegisterEvent e) {
         e.register(Registries.CREATIVE_MODE_TAB, helper -> {
-            helper.register(new ResourceLocation(RangedPumps.ID, "general"), CreativeModeTab.builder()
+            helper.register(ResourceLocation.fromNamespaceAndPath(RangedPumps.ID, "general"), CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.rangedpumps"))
                 .icon(() -> new ItemStack(RangedPumps.PUMP_BLOCK.get()))
                 .displayItems((params, output) -> {
