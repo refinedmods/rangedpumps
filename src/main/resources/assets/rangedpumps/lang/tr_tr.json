@@ -1,0 +1,11 @@
+{
+  "itemGroup.rangedpumps": "Ranged Pumps",
+  "block.rangedpumps.pump": "Pompa",
+  "block.rangedpumps.pump.state": "%d mB %s - %d / %d FE",
+  "block.rangedpumps.pump.state_empty": "Boş - %d / %d FE",
+  "block.rangedpumps.pump.state.energy": "Yetersiz enerji yok.",
+  "block.rangedpumps.pump.state.redstone": "Redstone sinyali nedeniyle çalışmıyor.",
+  "block.rangedpumps.pump.state.working": "%d, %d, %d konumunda tarama yapılıyor (menzil: %d / %d).",
+  "block.rangedpumps.pump.state.full": "Dahili depo dolu.",
+  "block.rangedpumps.pump.state.done": "Tamamlandı."
+}
