@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+-  Turkish translation.
+
 ## [1.3.0] - 2024-07-06
 
 ### Changed
