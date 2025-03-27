@@ -1,58 +1,47 @@
 = Pump
 :icon: pump.png
 
-Ranged Pumps is a simple mod that adds a pump that pumps liquids in a range.
+Ranged Pumps adds a simple pump that extracts liquids within a configurable range.
 
-The {doctitle} is the only block that is added by Ranged Pumps.
-It pumps liquids in a range.
+The {doctitle} is the only block added by the mod.
 
-image::../assets/recipe.png[The crafting recipe of the pump]
+image::../assets/recipe.png[Pump crafting recipe]
 
-== Placement
+== Usage
 
-Place the {doctitle} down, and it'll only work *without* a redstone signal.
+Place the {doctitle}. It operates *only without* a redstone signal.
 
-== Redstone signal
+== Redstone
 
-If you give the {doctitle} a redstone signal, it will stop working until you disable the redstone signal.
+A redstone signal disables the {doctitle} until removed.
 
-== Energy requirements
+== Energy
 
-By default, the {doctitle} requires Forge Energy, but can be configured to not use energy in the config.
+Uses Forge Energy by default (configurable to disable energy usage).
 
 == Internal tank
 
-The size of the internal tank of the {doctitle} is 32 buckets (by default).
-You can increase or decrease this in the config.
+Holds 32 buckets by default (configurable). Stops when full.
 
-The {doctitle} will stop running if the internal tank is full.
+== Status
 
-== Status updates
+Right-click the {doctitle} to view its current status.
 
-Right-click on the {doctitle} to know what it is doing and to know if it is running.
+== Range & scanning
 
-== Scanning and range
+image::../assets/scanning.png[Scanning diagram]
 
-image::../assets/scanning.png[Diagram describing the scanning direction and order]
+Pumps in a rectangular spiral, 1 block below the {doctitle}.
+Scans up to 64 blocks in all horizontal directions (nearest-first), and from the {doctitle}'s Y level down to bedrock.
 
-It'll start pumping liquids in rectangular spiral shape 1 block under the {doctitle.
+== Liquid replacement
 
-The default range is 64 blocks.
-That'll mean it scan 64 blocks in any direction, nearest-first.
+Replaces pumped liquids with stone (can be disabled via config).
 
-On a vertical (Y) level, it will scan liquids from the {doctitle} to bedrock.
+== Output
 
-== Liquids to stone
-
-The {doctitle} will also replace any liquids to stone by default.
-This can be turned off in the config.
-
-== Auto-pushing liquids
-
-The {doctitle} will auto-push liquids to neighboring tanks.
-You can also get the liquids out with pipes.
+Auto-pushes liquids to adjacent tanks. Pipes also work.
 
 == Chunkloading
 
-The mod doesn't chunkload the {doctitle} automatically.
-You'll need another mod to get this behavior.
+The {doctitle} is *not* chunkloaded. Use another mod for that.
