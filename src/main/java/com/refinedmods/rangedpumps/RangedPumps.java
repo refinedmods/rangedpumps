@@ -3,10 +3,12 @@ package com.refinedmods.rangedpumps;
 import com.refinedmods.rangedpumps.block.PumpBlock;
 import com.refinedmods.rangedpumps.blockentity.PumpBlockEntity;
 import com.refinedmods.rangedpumps.config.ServerConfig;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -34,13 +36,14 @@ public final class RangedPumps {
 
     public static DeferredHolder<Block, PumpBlock> PUMP_BLOCK = BLOCKS.register("pump", PumpBlock::new);
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<PumpBlockEntity>> PUMP_BLOCK_ENTITY_TYPE =
-        BLOCK_ENTITY_TYPES
-            .register("pump", () -> BlockEntityType.Builder.of(PumpBlockEntity::new, PUMP_BLOCK.get()).build(null));
+        BLOCK_ENTITY_TYPES.register("pump", () -> new BlockEntityType<>(PumpBlockEntity::new, PUMP_BLOCK.get()));
 
     public static final ServerConfig SERVER_CONFIG = new ServerConfig();
 
     public RangedPumps(final IEventBus eventBus, final ModContainer container) {
-        ITEMS.register("pump", () -> new BlockItem(PUMP_BLOCK.get(), new Item.Properties()));
+        ITEMS.register("pump", () -> new BlockItem(PUMP_BLOCK.get(), new Item.Properties()
+            .useBlockDescriptionPrefix()
+            .setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(RangedPumps.ID, "pump")))));
         container.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG.getSpec());
         BLOCKS.register(eventBus);
         ITEMS.register(eventBus);
@@ -51,12 +54,12 @@ public final class RangedPumps {
 
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent e) {
         e.registerBlockEntity(
-            Capabilities.EnergyStorage.BLOCK,
+            Capabilities.Energy.BLOCK,
             PUMP_BLOCK_ENTITY_TYPE.get(),
             (be, ctx) -> be.getEnergy()
         );
         e.registerBlockEntity(
-            Capabilities.FluidHandler.BLOCK,
+            Capabilities.Fluid.BLOCK,
             PUMP_BLOCK_ENTITY_TYPE.get(),
             (be, ctx) -> be.getTank()
         );
@@ -64,12 +67,10 @@ public final class RangedPumps {
 
     public static void onRegister(RegisterEvent e) {
         e.register(Registries.CREATIVE_MODE_TAB, helper -> {
-            helper.register(ResourceLocation.fromNamespaceAndPath(RangedPumps.ID, "general"), CreativeModeTab.builder()
-                .title(Component.translatable("itemGroup.rangedpumps"))
+            helper.register(Identifier.fromNamespaceAndPath(RangedPumps.ID, "general"), CreativeModeTab.builder()
+                .title(Component.translatable("mod." + ID))
                 .icon(() -> new ItemStack(RangedPumps.PUMP_BLOCK.get()))
-                .displayItems((params, output) -> {
-                    output.accept(RangedPumps.PUMP_BLOCK.get());
-                })
+                .displayItems((params, output) -> output.accept(RangedPumps.PUMP_BLOCK.get()))
                 .build());
         });
     }

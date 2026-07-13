@@ -1,5 +1,5 @@
 {
-  "itemGroup.rangedpumps": "Ranged Pumps",
+  "mod.rangedpumps": "Ranged Pumps",
   "block.rangedpumps.pump": "펌프",
   "block.rangedpumps.pump.state": "%2$s %1$d mb - %3$d / %4$d FE",
   "block.rangedpumps.pump.state_empty": "비어있음 - %d / %d FE",
