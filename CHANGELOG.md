@@ -7,13 +7,15 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-07-13
+
 ### Changed
 
 -   Ported to Minecraft 26.1.2.
 
 ### Added
 
--  Turkish translation.
+-   Turkish translation.
 
 ## [1.3.0] - 2024-07-06
 
@@ -161,7 +163,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Initial release for Minecraft 1.10.2.
 
-[Unreleased]: https://github.com/refinedmods/rangedpumps/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/refinedmods/rangedpumps/compare/v2.0.0...HEAD
+
+[2.0.0]: https://github.com/refinedmods/rangedpumps/compare/v1.3.0...v2.0.0
 
 [1.3.0]: https://github.com/refinedmods/rangedpumps/compare/v1.2.0...v1.3.0
 
