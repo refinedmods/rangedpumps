@@ -1,5 +1,5 @@
 {
-  "itemGroup.rangedpumps": "Pompe a distanza",
+  "mod.rangedpumps": "Pompe a distanza",
   "block.rangedpumps.pump": "Pompa",
   "block.rangedpumps.pump.state": "%d mB di %s - %d / %d FE",
   "block.rangedpumps.pump.state_empty": "Vuoto - %d / %d FE",

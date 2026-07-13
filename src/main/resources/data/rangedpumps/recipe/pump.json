@@ -6,21 +6,11 @@
     "OPO"
   ],
   "key": {
-    "O": {
-      "item": "minecraft:obsidian"
-    },
-    "P": {
-      "item": "minecraft:iron_pickaxe"
-    },
-    "L": {
-      "item": "minecraft:lava_bucket"
-    },
-    "D": {
-      "item": "minecraft:diamond_block"
-    },
-    "W": {
-      "item": "minecraft:water_bucket"
-    }
+    "O": "minecraft:obsidian",
+    "P": "minecraft:iron_pickaxe",
+    "L": "minecraft:lava_bucket",
+    "D": "minecraft:diamond_block",
+    "W": "minecraft:water_bucket"
   },
   "result": {
     "id": "rangedpumps:pump"

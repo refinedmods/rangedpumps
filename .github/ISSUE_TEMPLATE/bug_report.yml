@@ -36,16 +36,17 @@ body:
           If your Minecraft version isn't listed here, it means that it's no longer supported. In that case, don't create an issue.
         options:
           - Minecraft 1.21.1
+          - Minecraft 26.1.2
       validations:
         required: true
     - type: input
-      id: neoforge
+      id: modloader-version
       attributes:
           label: What NeoForge version is this happening on?
       validations:
           required: true
     - type: input
-      id: rp
+      id: version
       attributes:
           label: What Ranged Pumps version is this happening on?
           description: |

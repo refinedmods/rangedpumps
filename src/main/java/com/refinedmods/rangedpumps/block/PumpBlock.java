@@ -5,9 +5,9 @@ import com.refinedmods.rangedpumps.blockentity.PumpBlockEntity;
 import com.refinedmods.rangedpumps.blockentity.PumpState;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -19,12 +19,14 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import org.jspecify.annotations.Nullable;
 
 public class PumpBlock extends Block implements EntityBlock {
     public PumpBlock() {
-        super(Block.Properties.of().strength(1.9F).sound(SoundType.STONE));
+        super(Block.Properties.of()
+            .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(RangedPumps.ID, "pump")))
+            .strength(1.9F)
+            .sound(SoundType.STONE));
     }
 
     @Override
@@ -33,36 +35,15 @@ public class PumpBlock extends Block implements EntityBlock {
                                                final BlockPos pos,
                                                final Player player,
                                                final BlockHitResult hitResult) {
-        if (!level.isClientSide) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-
-            if (blockEntity instanceof PumpBlockEntity pump) {
-                IEnergyStorage energy = level.getCapability(
-                    Capabilities.EnergyStorage.BLOCK,
-                    pos,
-                    Direction.NORTH
-                );
-                if (energy == null) {
-                    return InteractionResult.SUCCESS;
-                }
-
-                Component message = PumpState.getMessage(pump);
-
-                if (message != null) {
-                    player.sendSystemMessage(message);
-                }
-
-                if (pump.getTank().getFluidAmount() == 0) {
-                    player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state_empty",
-                        energy.getEnergyStored(), energy.getMaxEnergyStored()));
-                } else {
-                    player.sendSystemMessage(Component.translatable("block." + RangedPumps.ID + ".pump.state",
-                        pump.getTank().getFluidAmount(), pump.getTank().getFluid().getHoverName(),
-                        energy.getEnergyStored(), energy.getMaxEnergyStored()));
-                }
-            }
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
         }
-
+        final BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (!(blockEntity instanceof PumpBlockEntity pump)) {
+            return InteractionResult.SUCCESS;
+        }
+        player.sendSystemMessage(PumpState.getMessage(pump));
+        player.sendSystemMessage(pump.getMessage());
         return InteractionResult.SUCCESS;
     }
 
@@ -72,9 +53,13 @@ public class PumpBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
                                                                   BlockEntityType<T> type) {
-        return !level.isClientSide ?
-            (levelTicker, pos, stateTicker, blockEntity) -> ((PumpBlockEntity) blockEntity).tick() : null;
+        return !level.isClientSide() ? (levelTicker, pos, stateTicker, blockEntity) -> {
+            if (blockEntity instanceof PumpBlockEntity pump) {
+                pump.tick();
+            }
+        } : null;
     }
 }

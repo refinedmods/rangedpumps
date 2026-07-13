@@ -4,7 +4,6 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.fluids.FluidType;
 
 public class ServerConfig {
-    private final ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
     private final ModConfigSpec spec;
 
     private final ModConfigSpec.IntValue range;
@@ -18,6 +17,8 @@ public class ServerConfig {
     private final ModConfigSpec.ConfigValue<String> blockIdToReplaceLiquidsWith;
 
     public ServerConfig() {
+        final ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+
         builder.push("pump");
 
         range = builder.comment("The range of the pump").defineInRange("range", 64, 0, 1024);

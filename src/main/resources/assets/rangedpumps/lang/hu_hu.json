@@ -1,5 +1,5 @@
 {
-  "itemGroup.rangedpumps": "Ranged Pumps",
+  "mod.rangedpumps": "Ranged Pumps",
   "block.rangedpumps.pump": "Pumpa",
   "block.rangedpumps.pump.state": "%d mB / %s - %d / %d FE",
   "block.rangedpumps.pump.state_empty": "Üres - %d / %d FE",

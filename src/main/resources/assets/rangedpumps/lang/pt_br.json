@@ -1,5 +1,5 @@
 {
-  "itemGroup.rangedpumps": "Ranged Pumps",
+  "mod.rangedpumps": "Ranged Pumps",
   "block.rangedpumps.pump": "Bomba",
   "block.rangedpumps.pump.state": "%d mB of %s - %d / %d FE",
   "block.rangedpumps.pump.state_empty": "Vazio - %d / %d FE",
