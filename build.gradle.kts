@@ -16,6 +16,7 @@ repositories {
 refinedarchitect {
     modId = "rangedpumps"
     neoForge()
+    javadoc()
     publishing {
         maven = true
         curseForge = "247496"
